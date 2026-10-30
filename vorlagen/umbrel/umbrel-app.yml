@@ -1,0 +1,58 @@
+manifestVersion: 1
+id: motom001-dms
+storage:
+  dataRoot: data
+category: files
+name: DMS
+version: "{{VERSION}}"
+tagline: Documents, contracts and paperwork of your household – organised in folders
+icon: {{ICON}}
+description: >-
+  DMS is a self-hosted document management system for households and families. Contracts,
+  insurance, tax, car, house, medical bills: every topic gets a folder with the fields you need,
+  documents are searchable thanks to built-in text recognition, and reminders make sure no
+  deadline is missed.
+
+
+  After installing, open the app: a setup assistant asks for the name of your household and
+  creates the first administrator. The database is already connected. The user interface is
+  in German.
+
+
+  ⚠️ Everyone in your home network can reach the app until the setup is finished – open it right
+  after installing. Afterwards family members sign in with their own DMS accounts, which is why
+  the Umbrel login is not required in front of the app.
+
+
+  Features:
+
+  - Folders with your own fields, registers and views
+
+  - Full-text search, also in scanned PDFs (OCR)
+
+  - Tasks, reminders, notes and a daily summary by e-mail
+
+  - Several users with roles and permissions
+
+  - Encrypted backups with an emergency sheet, restore in the browser
+
+  - Help for every screen in the built-in handbook link
+
+
+  DMS ist ein Dokumentenmanagement für Haushalte und Familien – mit Mappen, Volltextsuche,
+  Aufgaben, Erinnerungen und verschlüsselten Sicherungen. Die Oberfläche ist deutsch.
+releaseNotes: >-
+  {{HINWEISE}}
+developer: motom001
+website: https://motom001.github.io/dms/benutzer/aktuell/
+dependencies: []
+repo: https://github.com/motom001/dms
+support: https://github.com/motom001/dms/issues
+port: 8478
+gallery:
+{{GALERIE}}
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+submitter: motom001
+submission: https://github.com/motom001/dms-appstore

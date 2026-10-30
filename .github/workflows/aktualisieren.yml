@@ -1,0 +1,135 @@
+# Hält die App-Einträge auf dem Stand des neuesten DMS-Releases (motom001/dms#176).
+#
+# - Umbrel liest dieses Repository direkt (umbrel-app-store.yml, motom001-dms/).
+# - ZimaOS (v2) liest den gebauten Store auf dem Branch gh-pages (über jsDelivr).
+# - CasaOS (v1) liest die Zip-Datei des Branches main.
+#
+# Täglich, von Hand (auch für eine bestimmte Version) und nach Änderungen an Vorlagen oder Skript.
+# Ohne zusätzliche Tokens: Releases und Images des DMS sind öffentlich.
+name: Store aktualisieren
+
+on:
+  schedule:
+    - cron: '23 5 * * *'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'DMS-Version, z. B. 0.39.0 (leer = neuestes Release)'
+        required: false
+  push:
+    branches: [main]
+    paths: ['vorlagen/**', 'werkzeuge/**', '.github/workflows/**', 'store-config.json', 'supported-languages.json', 'Apps/DMS/icon.*']
+  pull_request:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: store
+  cancel-in-progress: false
+
+jobs:
+  aktualisieren:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: DMS-Version bestimmen
+        id: v
+        env:
+          GH_TOKEN: ${{ github.token }}
+          WUNSCH: ${{ inputs.version }}
+        run: |
+          v="$WUNSCH"
+          [ -n "$v" ] || v=$(gh api repos/motom001/dms/releases/latest --jq .tag_name)
+          v="${v#v}"
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          echo "DMS $v"
+          # Erst ab 0.39.0 (Einrichtung ohne Code); im Pull Request trotzdem prüfen.
+          if [ "$(printf '%s\n' 0.39.0 "$v" | sort -V | head -1)" = 0.39.0 ] || [ "${{ github.event_name }}" = pull_request ]; then
+            echo "weiter=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::DMS $v ist älter als 0.39.0 – noch nichts zu veröffentlichen."
+          fi
+
+      - name: Images mit Digest auflösen
+        if: steps.v.outputs.weiter == 'true'
+        id: bilder
+        env:
+          V: ${{ steps.v.outputs.version }}
+        run: |
+          digest() {
+            local bild="$1"
+            # Index für beide Plattformen – Umbrel und ZimaOS laufen auf amd64 und arm64.
+            local roh; roh=$(docker buildx imagetools inspect "$bild" --raw)
+            for p in amd64 arm64; do
+              echo "$roh" | jq -e --arg p "$p" '.manifests[] | select(.platform.architecture == $p)' >/dev/null \
+                || { echo "::error::$bild hat kein Image für $p"; exit 1; }
+            done
+            echo "$bild@$(docker buildx imagetools inspect "$bild" --format '{{json .Manifest}}' | jq -r .digest)"
+          }
+          echo "dms=$(digest "ghcr.io/motom001/dms:$V")" >> "$GITHUB_OUTPUT"
+          # PostgreSQL 17 wie in der Compose-Vorlage des DMS; der Digest folgt den Patch-Versionen.
+          echo "postgres=$(digest postgres:17-alpine)" >> "$GITHUB_OUTPUT"
+
+      - name: Screenshots aus dem Handbuch holen
+        if: steps.v.outputs.weiter == 'true'
+        run: |
+          hole() {
+            for h in benutzer admin; do
+              curl -fsSL -o "Apps/DMS/$2" "https://motom001.github.io/dms/$h/aktuell/bilder/$1.png" && return 0
+            done
+            echo "::warning::Screenshot $1 nicht gefunden – behalte den bisherigen"
+          }
+          hole ablage screenshot-1.png
+          hole dokumente screenshot-2.png
+          hole werkbank-sicherung screenshot-3.png
+          ls -l Apps/DMS
+
+      - name: App-Einträge erzeugen
+        if: steps.v.outputs.weiter == 'true'
+        env:
+          # Im Pull Request nur prüfen – auch mit einem älteren Release.
+          PRUEFLAUF: ${{ github.event_name == 'pull_request' && '1' || '' }}
+        run: python3 werkzeuge/erzeugen.py "${{ steps.v.outputs.version }}" "${{ steps.bilder.outputs.dms }}" "${{ steps.bilder.outputs.postgres }}"
+
+      - name: Compose-Dateien prüfen
+        if: steps.v.outputs.weiter == 'true'
+        run: |
+          # Umbrel setzt diese Werte zur Laufzeit; hier nur, damit die Syntax geprüft werden kann.
+          APP_DATA_DIR=/tmp/app APP_MOTOM001_DMS_DB_PASSWORD=x docker compose -f motom001-dms/docker-compose.yml config -q
+          AppID=dms docker compose -f Apps/DMS/docker-compose.yml config -q
+
+      - name: Übernehmen
+        if: steps.v.outputs.weiter == 'true' && github.event_name != 'pull_request'
+        run: |
+          git add -A motom001-dms Apps
+          if git diff --cached --quiet; then echo "Keine Änderung."; exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "DMS ${{ steps.v.outputs.version }}"
+          git push
+
+      - name: ZimaOS-Store bauen (v2)
+        if: steps.v.outputs.weiter == 'true'
+        uses: IceWhaleTech/build-appstore-action@v1
+        with:
+          source: .
+          output: dist
+          base-url: https://cdn.jsdelivr.net/gh/${{ github.repository }}@gh-pages
+
+      - name: ZimaOS-Store veröffentlichen
+        if: steps.v.outputs.weiter == 'true' && github.event_name != 'pull_request'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./dist
+
+      # jsDelivr hält Branches bis zu 12 Stunden im Cache – nach einem Update gleich leeren.
+      - name: Cache von jsDelivr leeren
+        if: steps.v.outputs.weiter == 'true' && github.event_name != 'pull_request'
+        run: |
+          for p in "gh-pages/store.json" "gh-pages/index.json" "main/Apps/DMS/icon.png" "main/Apps/DMS/screenshot-1.png" "main/Apps/DMS/screenshot-2.png" "main/Apps/DMS/screenshot-3.png"; do
+            curl -fsS "https://purge.jsdelivr.net/gh/${{ github.repository }}@$p" >/dev/null || true
+          done
