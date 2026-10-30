@@ -1,0 +1,42 @@
+app_version: "{{VERSION}}"
+capabilities: []
+categories:
+- productivity
+changelog_url: https://github.com/motom001/dms/releases
+date_added: '{{DATUM}}'
+description: DMS is a self-hosted document management system for households and families
+  – contracts, insurance, tax and all paperwork in folders, with full-text search (OCR),
+  tasks, reminders and encrypted backups. The user interface is in German.
+home: https://motom001.github.io/dms/
+host_mounts: []
+icon: https://cdn.jsdelivr.net/gh/motom001/dms-appstore@main/Apps/DMS/icon.png
+keywords:
+- documents
+- dms
+- paperless
+- household
+lib_version: 2.3.17
+lib_version_hash: ""
+maintainers:
+- email: motom001@users.noreply.github.com
+  name: motom001
+  url: https://github.com/motom001
+name: dms
+run_as_context:
+- description: Container [dms] runs as root user and group.
+  gid: 0
+  group_name: Host group is [root]
+  uid: 0
+  user_name: Host user is [root]
+- description: Container [postgres] runs as non-root user and group.
+  gid: 999
+  group_name: Host group is [docker]
+  uid: 999
+  user_name: Host user is [netdata]
+screenshots: []
+sources:
+- https://github.com/motom001/dms
+- https://motom001.github.io/dms/installieren/aktuell/truenas/
+title: DMS
+train: community
+version: 1.0.0

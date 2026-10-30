@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>DMS</Name>
+  <Repository>ghcr.io/motom001/dms:main</Repository>
+  <Registry>https://github.com/motom001/dms/pkgs/container/dms</Registry>
+  <Network>bridge</Network>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/motom001/dms/issues</Support>
+  <Project>https://github.com/motom001/dms</Project>
+  <Overview>Dokumentenmanagement für Haushalte und Familien: Verträge, Versicherungen, Steuer und alle Unterlagen in Mappen – mit Volltextsuche (Texterkennung), Aufgaben, Erinnerungen und verschlüsselten Sicherungen. Oberfläche auf Deutsch. Braucht die Vorlage „DMS-Datenbank“ (PostgreSQL 17) – zuerst diese installieren.</Overview>
+  <Category>Productivity:</Category>
+  <WebUI>http://[IP]:[PORT:3000]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/motom001/dms-appstore/main/unraid/dms.xml</TemplateURL>
+  <Icon>https://cdn.jsdelivr.net/gh/motom001/dms-appstore@main/Apps/DMS/icon.png</Icon>
+  <ExtraParams>--init</ExtraParams>
+  <Requires>Zuerst die Vorlage „DMS-Datenbank“ installieren und dasselbe Passwort hier eintragen.</Requires>
+  <Config Name="Web-Oberfläche" Target="3000" Default="8080" Mode="tcp" Description="Port im Browser: http://&lt;Unraid&gt;:8080" Type="Port" Display="always" Required="true" Mask="false">8080</Config>
+  <Config Name="Datenbank-Passwort" Target="DMS_DB_PASSWORT" Default="" Mode="" Description="Dasselbe Passwort wie bei „DMS-Datenbank“" Type="Variable" Display="always" Required="true" Mask="true"></Config>
+  <Config Name="Datenbank-Server" Target="DMS_DB_HOST" Default="" Mode="" Description="IP-Adresse deines Unraid-Servers, z. B. 192.168.1.10" Type="Variable" Display="always" Required="true" Mask="false"></Config>
+  <Config Name="Datenbank-Port" Target="DMS_DB_PORT" Default="5433" Mode="" Description="Port von „DMS-Datenbank“" Type="Variable" Display="always" Required="true" Mask="false">5433</Config>
+  <Config Name="Einrichtungscode" Target="DMS_EINRICHTUNGSCODE" Default="aus" Mode="" Description="aus: Einrichtung ohne Code – gleich nach dem Start einrichten" Type="Variable" Display="advanced" Required="false" Mask="false">aus</Config>
+  <Config Name="Dateien" Target="/data/files" Default="/mnt/user/appdata/dms/files" Mode="rw" Description="Hochgeladene Dokumente" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/dms/files</Config>
+  <Config Name="Schlüssel" Target="/data/geheim" Default="/mnt/user/appdata/dms/geheim" Mode="rw" Description="Schlüssel und Einrichtungscode" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/dms/geheim</Config>
+  <Config Name="Sicherungen" Target="/data/sicherung" Default="/mnt/user/appdata/dms/sicherung" Mode="rw" Description="Sicherungen des DMS – ab und zu an einen anderen Ort kopieren" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/dms/sicherung</Config>
+</Container>
