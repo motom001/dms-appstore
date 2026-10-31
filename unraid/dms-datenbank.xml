@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>DMS-Datenbank</Name>
+  <Repository>postgres:17</Repository>
+  <Registry>https://hub.docker.com/_/postgres</Registry>
+  <Network>bridge</Network>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/motom001/dms/issues</Support>
+  <Project>https://github.com/motom001/dms</Project>
+  <Overview>PostgreSQL 17 für das DMS. Zuerst diese Vorlage installieren, dann „DMS“ mit demselben Passwort.</Overview>
+  <Category>Productivity:</Category>
+  <TemplateURL>https://raw.githubusercontent.com/motom001/dms-appstore/main/unraid/dms-datenbank.xml</TemplateURL>
+  <Icon>https://cdn.jsdelivr.net/gh/motom001/dms-appstore@main/Apps/DMS/icon.png</Icon>
+  <Config Name="Port" Target="5432" Default="5433" Mode="tcp" Description="Port für das DMS (bei „DMS“ als Datenbank-Port eintragen)" Type="Port" Display="always" Required="true" Mask="false">5433</Config>
+  <Config Name="Passwort" Target="POSTGRES_PASSWORD" Default="" Mode="" Description="Langes Passwort aus Buchstaben und Zahlen – dasselbe bei „DMS“ eintragen" Type="Variable" Display="always" Required="true" Mask="true"></Config>
+  <Config Name="Benutzer" Target="POSTGRES_USER" Default="dms" Mode="" Description="" Type="Variable" Display="advanced" Required="true" Mask="false">dms</Config>
+  <Config Name="Datenbank" Target="POSTGRES_DB" Default="dms" Mode="" Description="" Type="Variable" Display="advanced" Required="true" Mask="false">dms</Config>
+  <Config Name="Daten" Target="/var/lib/postgresql/data" Default="/mnt/user/appdata/dms/postgres" Mode="rw" Description="Datenbank" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/dms/postgres</Config>
+</Container>

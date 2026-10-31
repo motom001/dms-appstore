@@ -44,6 +44,10 @@ jobs:
           [ -n "$v" ] || v=$(gh api repos/motom001/dms/releases/latest --jq .tag_name)
           v="${v#v}"
           echo "version=$v" >> "$GITHUB_OUTPUT"
+          # Datum des Releases – damit sich die Einträge nicht täglich ändern.
+          echo "datum=$(gh api "repos/motom001/dms/releases/tags/v$v" --jq '.published_at[0:10]')" >> "$GITHUB_OUTPUT"
+          # Einrichtung ohne Code gibt es erst ab 0.39.0 (für die Probe-Installation).
+          if [ "$(printf '%s\n' 0.39.0 "$v" | sort -V | head -1)" = 0.39.0 ]; then echo "probe=" >> "$GITHUB_OUTPUT"; else echo "probe=--ohne-einrichtung" >> "$GITHUB_OUTPUT"; fi
           echo "DMS $v"
           # Erst ab 0.39.0 (Einrichtung ohne Code); im Pull Request trotzdem prüfen.
           if [ "$(printf '%s\n' 0.39.0 "$v" | sort -V | head -1)" = 0.39.0 ] || [ "${{ github.event_name }}" = pull_request ]; then
@@ -91,7 +95,7 @@ jobs:
         env:
           # Im Pull Request nur prüfen – auch mit einem älteren Release.
           PRUEFLAUF: ${{ github.event_name == 'pull_request' && '1' || '' }}
-        run: python3 werkzeuge/erzeugen.py "${{ steps.v.outputs.version }}" "${{ steps.bilder.outputs.dms }}" "${{ steps.bilder.outputs.postgres }}"
+        run: python3 werkzeuge/erzeugen.py "${{ steps.v.outputs.version }}" "${{ steps.bilder.outputs.dms }}" "${{ steps.bilder.outputs.postgres }}" "${{ steps.v.outputs.datum }}"
 
       - name: Compose-Dateien prüfen
         if: steps.v.outputs.weiter == 'true'
@@ -102,10 +106,38 @@ jobs:
           APP_DATA_DIR=/tmp/app APP_MOTOM001_DMS_DB_PASSWORD=x docker compose -f /tmp/umbrel.yml config -q
           AppID=dms docker compose -f Apps/DMS/docker-compose.yml config -q
 
+      - name: Probe-Installation Umbrel
+        if: steps.v.outputs.weiter == 'true'
+        run: werkzeuge/probe.sh umbrel ${{ steps.v.outputs.probe }}
+
+      - name: Probe-Installation ZimaOS/CasaOS
+        if: steps.v.outputs.weiter == 'true'
+        run: werkzeuge/probe.sh casaos ${{ steps.v.outputs.probe }}
+
+      # TrueNAS (motom001/dms#182): mit dem Prüfwerkzeug des Katalogs rendern, starten, auf „healthy“ warten.
+      - name: TrueNAS-Katalog prüfen
+        if: steps.v.outputs.weiter == 'true'
+        run: |
+          git clone --quiet --depth 1 https://github.com/truenas/apps.git "$RUNNER_TEMP/truenas-apps"
+          rm -rf "$RUNNER_TEMP/truenas-apps/ix-dev/community/dms"
+          cp -r truenas/dms "$RUNNER_TEMP/truenas-apps/ix-dev/community/dms"
+          pip install --quiet pyyaml psutil pytest pytest-cov bcrypt pydantic
+          cd "$RUNNER_TEMP/truenas-apps"
+          # Neueste Bibliothek des Katalogs verwenden; ci.py trägt den Hash ein.
+          lib=$(ls library | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -1)
+          sed -i "s/^lib_version: .*/lib_version: $lib/" ix-dev/community/dms/app.yaml
+          # Bei Fehlern die letzten Zeilen als Anmerkung ausgeben (Job-Logs sind nicht überall lesbar).
+          melde() { tail -n 40 "$1" | sed 's/%/%25/g' | awk 'BEGIN{ORS="%0A"} {print}' | sed 's/^/::error title=TrueNAS::/'; echo; }
+          set -o pipefail
+          ./.github/scripts/ci.py --app dms --train community --test-file basic-values.yaml 2>&1 | tee "$RUNNER_TEMP/truenas.log" || { melde "$RUNNER_TEMP/truenas.log"; exit 1; }
+          ./.github/scripts/port_validation.py 2>&1 | tee "$RUNNER_TEMP/ports.log" || { melde "$RUNNER_TEMP/ports.log"; exit 1; }
+          # Ergebnis (Bibliothek, Hash, Metadaten) zurück, damit es eingecheckt wird.
+          rsync -a --delete ix-dev/community/dms/ "$GITHUB_WORKSPACE/truenas/dms/"
+
       - name: Übernehmen
         if: steps.v.outputs.weiter == 'true' && github.event_name != 'pull_request'
         run: |
-          git add -A motom001-dms Apps
+          git add -A motom001-dms Apps truenas offiziell
           if git diff --cached --quiet; then echo "Keine Änderung."; exit 0; fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
