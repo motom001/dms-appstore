@@ -1,0 +1,42 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: motom001-dms_server_1
+      APP_PORT: 3000
+      # Familienmitglieder melden sich mit ihrem eigenen DMS-Konto an; die Umbrel-Anmeldung hat nur
+      # der Besitzer des Geräts. Links aus E-Mails und die API (/api/v1) gehen ebenfalls ohne sie.
+      PROXY_AUTH_ADD: "false"
+
+  server:
+    image: {{DMS_IMAGE}}
+    restart: on-failure
+    init: true
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Die Verbindung steht fest; der Einrichtungsassistent beginnt beim Mandanten (#176).
+      DATABASE_URL: postgres://dms:${APP_MOTOM001_DMS_DB_PASSWORD}@motom001-dms_db_1:5432/dms
+      # Ohne Einrichtungscode: Er stünde nur im Protokoll des Containers.
+      DMS_EINRICHTUNGSCODE: "aus"
+    volumes:
+      - ${APP_DATA_DIR}/data/files:/data/files
+      - ${APP_DATA_DIR}/data/geheim:/data/geheim
+      - ${APP_DATA_DIR}/data/sicherung:/data/sicherung
+
+  db:
+    image: {{POSTGRES_IMAGE}}
+    restart: on-failure
+    environment:
+      POSTGRES_DB: dms
+      POSTGRES_USER: dms
+      POSTGRES_PASSWORD: ${APP_MOTOM001_DMS_DB_PASSWORD}
+    volumes:
+      - ${APP_DATA_DIR}/data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dms -d dms"]
+      interval: 10s
+      timeout: 5s
+      retries: 10

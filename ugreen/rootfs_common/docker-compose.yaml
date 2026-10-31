@@ -1,0 +1,33 @@
+# UGREEN App Center – ENTWURF (motom001/dms#181). Images als tar unter rootfs_{arch}/images/.
+services:
+  db:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: dms
+      POSTGRES_USER: dms
+      POSTGRES_PASSWORD: ${DB_PASSWORT}
+    volumes:
+      # Offen: Welcher Pfad ist bei UGREEN-Apps der dauerhafte Datenordner? (siehe README)
+      - ./data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dms -d dms"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+  app:
+    image: ghcr.io/motom001/dms:0.40.0
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DMS_DB_PASSWORT: ${DB_PASSWORT}
+      DMS_EINRICHTUNGSCODE: "aus"
+      TZ: ${TZ}
+    volumes:
+      - ./data/files:/data/files
+      - ./data/geheim:/data/geheim
+      - ./data/sicherung:/data/sicherung
+    ports:
+      - "3000:3000"

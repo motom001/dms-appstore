@@ -1,0 +1,40 @@
+# UGREEN App Center (UGOS Pro) – ENTWURF für motom001/dms#181.
+# Aufbau nach https://developer.ugnas.com/en/doc/tools/project-yaml.html (spec_version 2.1).
+# Offene Fragen stehen in ugreen/README.md; gepackt wird mit `ugcli pack --build <n>`.
+spec_version: "2.1"
+app_id: io.github.motom001.dms
+version: "0.40.0"
+support_arch: [amd64, arm64]
+product_series: [nasync]
+tag_types: [utility, backup]
+port: 3000
+open_type: tab
+is_docker_app: true
+depend_docker_version: "1.7.0.0000"
+license_agreement_link: ["https://github.com/motom001/dms/blob/main/LICENSE"]
+source_code_link: ["https://github.com/motom001/dms"]
+technical_support_link: ["https://github.com/motom001/dms/issues"]
+parameters:
+  - key: DB_PASSWORT
+    type: password
+    required: true
+    i18n:
+      de-DE:
+        name: Datenbank-Passwort
+        description: Ein langes Passwort aus Buchstaben und Zahlen. Es schützt die Datenbank des DMS.
+      en-US:
+        name: Database password
+        description: A long password of letters and digits. It protects the DMS database.
+i18n:
+  de-DE:
+    name: DMS
+    description: Dokumentenmanagement für Haushalte und Familien – Verträge, Versicherungen, Steuer und alle Unterlagen in Mappen, mit Volltextsuche, Aufgaben, Erinnerungen und verschlüsselten Sicherungen.
+    author: motom001
+    official: https://motom001.github.io/dms/
+    help: https://motom001.github.io/dms/installieren/aktuell/ugreen/
+  en-US:
+    name: DMS
+    description: Document management for households and families – contracts, insurance, tax and all paperwork in folders, with full-text search, tasks, reminders and encrypted backups. User interface in German.
+    author: motom001
+    official: https://motom001.github.io/dms/
+    help: https://motom001.github.io/dms/installieren/aktuell/ugreen/
