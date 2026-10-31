@@ -1,0 +1,9 @@
+{
+  "apps": [
+    {
+      "id": "io.github.motom001.dms",
+      "title": "DMS",
+      "tagline": "Verträge, Versicherungen, Steuer und alle Unterlagen deines Haushalts – geordnet in Mappen"
+    }
+  ]
+}

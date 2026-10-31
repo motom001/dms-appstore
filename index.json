@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "updated_at": "2026-10-31T13:50:17Z",
+  "app_count": 1,
+  "base_url": "https://cdn.jsdelivr.net/gh/motom001/dms-appstore@gh-pages",
+  "apps": [
+    {
+      "id": "io.github.motom001.dms",
+      "title": "DMS",
+      "tagline": "Documents, contracts and paperwork of your household – organised in folders",
+      "category": "Productivity",
+      "categories": [
+        "productivity"
+      ],
+      "author": "motom001",
+      "developer": "motom001",
+      "architectures": [
+        "amd64",
+        "arm64"
+      ],
+      "icon": "/apps/io.github.motom001.dms/assets/icon.png",
+      "thumbnail": "",
+      "compose_url": "/apps/io.github.motom001.dms/docker-compose.yml",
+      "meta_url": "/apps/io.github.motom001.dms/meta.json",
+      "content_hash": "7f486f0b",
+      "version": "0.72.0"
+    }
+  ]
+}

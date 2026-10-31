@@ -1,0 +1,37 @@
+{
+  "tagline": "Documents, contracts and paperwork of your household – organised in folders",
+  "description": "DMS is a self-hosted document management system for households and families. Contracts, insurance, tax, car, house, medical bills: every topic gets a folder with the fields you need, documents are searchable thanks to built-in text recognition, and reminders make sure no deadline is missed.\n\nAfter installing, open the app: a setup assistant asks for the name of your household and creates the first administrator. The database is already connected. The user interface is in German.\n\n- Folders with your own fields, registers and views\n- Full-text search, also in scanned PDFs (OCR)\n- Tasks, reminders, notes and a daily summary by e-mail\n- Several users with roles and permissions\n- Encrypted backups with an emergency sheet, restore in the browser\n",
+  "tips": {
+    "before_install": "Open the app right after installing and finish the setup assistant – until then everyone in your home network could do it. Afterwards, create a backup schedule under Werkbank → Sicherung and copy the backups to another place from time to time."
+  },
+  "author": "motom001",
+  "developer": "motom001",
+  "category": "Productivity",
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "update_at": "2026-10-31",
+  "website": "https://motom001.github.io/dms/benutzer/aktuell/",
+  "repo": "https://github.com/motom001/dms",
+  "support": "https://github.com/motom001/dms/issues",
+  "docs": "https://motom001.github.io/dms/admin/aktuell/",
+  "screenshot_link": [
+    "/apps/io.github.motom001.dms/assets/screenshot-1.webp",
+    "/apps/io.github.motom001.dms/assets/screenshot-2.webp",
+    "/apps/io.github.motom001.dms/assets/screenshot-3.webp"
+  ],
+  "title": "DMS",
+  "release_note": "What is new: https://github.com/motom001/dms/releases/tag/v0.72.0",
+  "base_url": "https://cdn.jsdelivr.net/gh/motom001/dms-appstore@gh-pages",
+  "id": "io.github.motom001.dms",
+  "version": "0.72.0",
+  "categories": [
+    "productivity"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 216283006,
+    "arm64": 213418280
+  }
+}

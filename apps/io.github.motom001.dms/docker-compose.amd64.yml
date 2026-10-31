@@ -1,0 +1,58 @@
+name: dms
+
+services:
+  dms:
+    image: ghcr.io/motom001/dms:0.72.0@sha256:500b9b1011c3025f29a5876981ffba56a4a6e21d5d2bd9d4b05b9e6cb266dafa
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Die Verbindung steht fest; der Einrichtungsassistent beginnt beim Mandanten.
+      # Die Datenbank ist nur innerhalb dieser App erreichbar (kein Port nach außen).
+      DATABASE_URL: postgres://dms:dms-zimaos@db:5432/dms
+      # Ohne Einrichtungscode: Er stünde nur im Protokoll des Containers.
+      DMS_EINRICHTUNGSCODE: "aus"
+    ports:
+      - target: 3000
+        published: "8478"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/files
+        target: /data/files
+      - type: bind
+        source: /DATA/AppData/$AppID/geheim
+        target: /data/geheim
+      - type: bind
+        source: /DATA/AppData/$AppID/sicherung
+        target: /data/sicherung
+
+  db:
+    image: postgres:17-alpine@sha256:266d3c257594e195b309ae9d1805e54c788f1d7b375f56bf6c367aac6c917e7b
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: dms
+      POSTGRES_USER: dms
+      POSTGRES_PASSWORD: dms-zimaos
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/postgres
+        target: /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dms -d dms"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+x-casaos:
+  id: io.github.motom001.dms
+  main: dms
+  index: /
+  port_map: "8478"
+  scheme: http
+  icon: https://cdn.jsdelivr.net/gh/motom001/dms-appstore@gh-pages/apps/io.github.motom001.dms/assets/icon.png
+  title:
+    en_US: DMS
+    de_DE: DMS
+  version: "0.72.0"

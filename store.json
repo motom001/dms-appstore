@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "store_id": "motom001-dms",
+  "name": "DMS App Store",
+  "description": "DMS – document management for households and families.",
+  "maintainer": "motom001",
+  "url": "https://github.com/motom001/dms-appstore"
+}
