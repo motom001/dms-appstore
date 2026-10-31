@@ -1,16 +1,12 @@
 name: dms
 
 services:
+  # dms-komplett (motom001/dms-appstore#5): DMS und PostgreSQL in einem Container. PostgreSQL lauscht
+  # nur im Container, ohne Passwort – es gibt kein festes Datenbank-Passwort und keinen Datenbank-Port.
   dms:
-    image: ghcr.io/motom001/dms:0.72.0@sha256:500b9b1011c3025f29a5876981ffba56a4a6e21d5d2bd9d4b05b9e6cb266dafa
+    image: ghcr.io/motom001/dms-komplett:0.73.10@sha256:97b0bd569e3c8b293f4d26576412969e49ea933cc660110ff50944a6a83a18c7
     restart: unless-stopped
-    depends_on:
-      db:
-        condition: service_healthy
     environment:
-      # Die Verbindung steht fest; der Einrichtungsassistent beginnt beim Mandanten.
-      # Die Datenbank ist nur innerhalb dieser App erreichbar (kein Port nach außen).
-      DATABASE_URL: postgres://dms:dms-zimaos@db:5432/dms
       # Ohne Einrichtungscode: Er stünde nur im Protokoll des Containers.
       DMS_EINRICHTUNGSCODE: "aus"
     ports:
@@ -27,23 +23,9 @@ services:
       - type: bind
         source: /DATA/AppData/$AppID/sicherung
         target: /data/sicherung
-
-  db:
-    image: postgres:17-alpine@sha256:266d3c257594e195b309ae9d1805e54c788f1d7b375f56bf6c367aac6c917e7b
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: dms
-      POSTGRES_USER: dms
-      POSTGRES_PASSWORD: dms-zimaos
-    volumes:
       - type: bind
         source: /DATA/AppData/$AppID/postgres
-        target: /var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U dms -d dms"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
+        target: /data/postgres
 
 x-casaos:
   id: io.github.motom001.dms
@@ -89,11 +71,11 @@ x-casaos:
   architectures:
     - amd64
     - arm64
-  version: "0.72.0"
+  version: "0.73.10"
   update_at: "2026-10-31"
   release_notes:
-    en_US: "What is new: https://github.com/motom001/dms/releases/tag/v0.72.0"
-    de_DE: "Was neu ist: https://github.com/motom001/dms/releases/tag/v0.72.0"
+    en_US: "What is new: https://github.com/motom001/dms/releases/tag/v0.73.10"
+    de_DE: "Was neu ist: https://github.com/motom001/dms/releases/tag/v0.73.10"
   website: https://motom001.github.io/dms/benutzer/aktuell/
   repo: https://github.com/motom001/dms
   support: https://github.com/motom001/dms/issues

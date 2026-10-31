@@ -4,7 +4,7 @@ storage:
   dataRoot: data
 category: files
 name: DMS
-version: "0.72.0"
+version: "0.73.10"
 tagline: Documents, contracts and paperwork of your household – organised in folders
 icon: https://cdn.jsdelivr.net/gh/motom001/dms-appstore@main/Apps/DMS/icon.png
 description: >-
@@ -42,7 +42,7 @@ description: >-
   DMS ist ein Dokumentenmanagement für Haushalte und Familien – mit Mappen, Volltextsuche,
   Aufgaben, Erinnerungen und verschlüsselten Sicherungen. Die Oberfläche ist deutsch.
 releaseNotes: >-
-  What is new: https://github.com/motom001/dms/releases/tag/v0.72.0
+  What is new: https://github.com/motom001/dms/releases/tag/v0.73.10
 developer: motom001
 website: https://motom001.github.io/dms/benutzer/aktuell/
 dependencies: []
