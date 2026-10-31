@@ -2,7 +2,7 @@
 """
 Erzeugt die App-Einträge aus den Vorlagen (vorlagen/) für eine DMS-Version.
 
-    python3 werkzeuge/erzeugen.py <version> <dms-image@sha256:…> <postgres-image@sha256:…> [datum]
+    python3 werkzeuge/erzeugen.py <version> <dms-image@sha256:…> <postgres-image@sha256:…> <dms-komplett-image@sha256:…> [datum]
 
   motom001-dms/          Umbrel (Community App Store; umbrel-app-store.yml liegt im Hauptordner)
   Apps/DMS/              ZimaOS/CasaOS (Quelle für den v2-Store und die v1-Zip-Datei)
@@ -18,20 +18,20 @@ from pathlib import Path
 WURZEL = Path(__file__).resolve().parent.parent
 CDN = 'https://cdn.jsdelivr.net/gh/motom001/dms-appstore@main/Apps/DMS'
 SCREENSHOTS = ['screenshot-1.png', 'screenshot-2.png', 'screenshot-3.png']
-MINDESTENS = (0, 39, 0)  # ab hier: DMS_EINRICHTUNGSCODE=aus
+MINDESTENS = (0, 42, 0)  # ab hier: DMS_EINRICHTUNGSCODE=aus und dms-komplett (ZimaOS/CasaOS)
 
 
 def main():
-    if len(sys.argv) < 4:
+    if len(sys.argv) < 5:
         sys.exit(__doc__)
-    version, dms, pg = sys.argv[1].lstrip('v'), sys.argv[2], sys.argv[3]
-    datum = sys.argv[4] if len(sys.argv) > 4 else date.today().isoformat()
+    version, dms, pg, komplett = sys.argv[1].lstrip('v'), sys.argv[2], sys.argv[3], sys.argv[4]
+    datum = sys.argv[5] if len(sys.argv) > 5 else date.today().isoformat()
     m = re.fullmatch(r'(\d+)\.(\d+)\.(\d+)', version)
     if not m:
         sys.exit(f'Version {version!r} ist keine Release-Nummer wie 0.39.0')
     if tuple(map(int, m.groups())) < MINDESTENS and not os.environ.get('PRUEFLAUF'):
         sys.exit(f'DMS {version} ist zu alt für die App-Stores (mindestens {".".join(map(str, MINDESTENS))})')
-    for bild in (dms, pg):
+    for bild in (dms, pg, komplett):
         if not re.fullmatch(r'[\w./-]+:[\w.-]+@sha256:[0-9a-f]{64}', bild):
             sys.exit(f'Image {bild!r}: erwartet name:tag@sha256:…')
 
@@ -39,6 +39,7 @@ def main():
         'VERSION': version,
         'DMS_IMAGE': dms,
         'POSTGRES_IMAGE': pg,
+        'DMS_KOMPLETT_IMAGE': komplett,
         'DATUM': datum,
         'ICON': f'{CDN}/icon.png',
         'HINWEISE': f'What is new: https://github.com/motom001/dms/releases/tag/v{version}',

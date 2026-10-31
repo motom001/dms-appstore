@@ -32,7 +32,7 @@ jobs:
   aktualisieren:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: DMS-Version bestimmen
         id: v
@@ -49,11 +49,11 @@ jobs:
           # Einrichtung ohne Code gibt es erst ab 0.39.0 (für die Probe-Installation).
           if [ "$(printf '%s\n' 0.39.0 "$v" | sort -V | head -1)" = 0.39.0 ]; then echo "probe=" >> "$GITHUB_OUTPUT"; else echo "probe=--ohne-einrichtung" >> "$GITHUB_OUTPUT"; fi
           echo "DMS $v"
-          # Erst ab 0.39.0 (Einrichtung ohne Code); im Pull Request trotzdem prüfen.
-          if [ "$(printf '%s\n' 0.39.0 "$v" | sort -V | head -1)" = 0.39.0 ] || [ "${{ github.event_name }}" = pull_request ]; then
+          # Erst ab 0.42.0 (Einrichtung ohne Code, dms-komplett); im Pull Request trotzdem prüfen.
+          if [ "$(printf '%s\n' 0.42.0 "$v" | sort -V | head -1)" = 0.42.0 ] || [ "${{ github.event_name }}" = pull_request ]; then
             echo "weiter=true" >> "$GITHUB_OUTPUT"
           else
-            echo "::notice::DMS $v ist älter als 0.39.0 – noch nichts zu veröffentlichen."
+            echo "::notice::DMS $v ist älter als 0.42.0 – noch nichts zu veröffentlichen."
           fi
 
       - name: Images mit Digest auflösen
@@ -73,6 +73,8 @@ jobs:
             echo "$bild@$(docker buildx imagetools inspect "$bild" --format '{{json .Manifest}}' | jq -r .digest)"
           }
           echo "dms=$(digest "ghcr.io/motom001/dms:$V")" >> "$GITHUB_OUTPUT"
+          # ZimaOS/CasaOS: DMS mit eingebauter Datenbank, ohne Datenbank-Passwort (dms-appstore#5).
+          echo "komplett=$(digest "ghcr.io/motom001/dms-komplett:$V")" >> "$GITHUB_OUTPUT"
           # PostgreSQL 17 wie in der Compose-Vorlage des DMS; der Digest folgt den Patch-Versionen.
           echo "postgres=$(digest postgres:17-alpine)" >> "$GITHUB_OUTPUT"
 
@@ -95,7 +97,7 @@ jobs:
         env:
           # Im Pull Request nur prüfen – auch mit einem älteren Release.
           PRUEFLAUF: ${{ github.event_name == 'pull_request' && '1' || '' }}
-        run: python3 werkzeuge/erzeugen.py "${{ steps.v.outputs.version }}" "${{ steps.bilder.outputs.dms }}" "${{ steps.bilder.outputs.postgres }}" "${{ steps.v.outputs.datum }}"
+        run: python3 werkzeuge/erzeugen.py "${{ steps.v.outputs.version }}" "${{ steps.bilder.outputs.dms }}" "${{ steps.bilder.outputs.postgres }}" "${{ steps.bilder.outputs.komplett }}" "${{ steps.v.outputs.datum }}"
 
       - name: Compose-Dateien prüfen
         if: steps.v.outputs.weiter == 'true'
