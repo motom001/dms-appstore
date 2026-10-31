@@ -22,16 +22,16 @@
     "/apps/io.github.motom001.dms/assets/screenshot-3.webp"
   ],
   "title": "DMS",
-  "release_note": "What is new: https://github.com/motom001/dms/releases/tag/v0.72.0",
+  "release_note": "What is new: https://github.com/motom001/dms/releases/tag/v0.73.10",
   "base_url": "https://cdn.jsdelivr.net/gh/motom001/dms-appstore@gh-pages",
   "id": "io.github.motom001.dms",
-  "version": "0.72.0",
+  "version": "0.73.10",
   "categories": [
     "productivity"
   ],
   "min_memory": 0,
   "min_image_size": {
-    "amd64": 216283006,
-    "arm64": 213418280
+    "amd64": 113614841,
+    "arm64": 113129085
   }
 }
