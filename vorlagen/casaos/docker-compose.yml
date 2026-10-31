@@ -1,16 +1,12 @@
 name: dms
 
 services:
+  # dms-komplett (motom001/dms-appstore#5): DMS und PostgreSQL in einem Container. PostgreSQL lauscht
+  # nur im Container, ohne Passwort – es gibt kein festes Datenbank-Passwort und keinen Datenbank-Port.
   dms:
-    image: {{DMS_IMAGE}}
+    image: {{DMS_KOMPLETT_IMAGE}}
     restart: unless-stopped
-    depends_on:
-      db:
-        condition: service_healthy
     environment:
-      # Die Verbindung steht fest; der Einrichtungsassistent beginnt beim Mandanten.
-      # Die Datenbank ist nur innerhalb dieser App erreichbar (kein Port nach außen).
-      DATABASE_URL: postgres://dms:dms-zimaos@db:5432/dms
       # Ohne Einrichtungscode: Er stünde nur im Protokoll des Containers.
       DMS_EINRICHTUNGSCODE: "aus"
     ports:
@@ -27,23 +23,9 @@ services:
       - type: bind
         source: /DATA/AppData/$AppID/sicherung
         target: /data/sicherung
-
-  db:
-    image: {{POSTGRES_IMAGE}}
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: dms
-      POSTGRES_USER: dms
-      POSTGRES_PASSWORD: dms-zimaos
-    volumes:
       - type: bind
         source: /DATA/AppData/$AppID/postgres
-        target: /var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U dms -d dms"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
+        target: /data/postgres
 
 x-casaos:
   id: io.github.motom001.dms
