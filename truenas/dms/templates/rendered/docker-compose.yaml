@@ -1,0 +1,355 @@
+configs:
+  permissions_actions_data:
+    content: '[{"read_only": false, "mount_path": "/mnt/permission/postgres_postgres_data",
+      "is_temporary": false, "identifier": "postgres_postgres_data", "recursive":
+      false, "mode": "check", "uid": 999, "gid": 999, "chmod": null}]'
+networks:
+  ix-internal-app-name-dms-net:
+    enable_ipv6: false
+    external: false
+    labels:
+      tn.network.internal: 'true'
+    name: ix-internal-app-name-dms-net
+services:
+  dms:
+    cap_drop:
+    - ALL
+    depends_on:
+      postgres:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2048M
+    environment:
+      DATABASE_URL: postgres://dms:password@postgres:5432/dms?sslmode=disable
+      DMS_EINRICHTUNGSCODE: aus
+      NVIDIA_VISIBLE_DEVICES: void
+      TZ: Etc/UTC
+      UMASK: '002'
+      UMASK_SET: '002'
+    group_add:
+    - 568
+    healthcheck:
+      interval: 30s
+      retries: 5
+      start_interval: 2s
+      start_period: 15s
+      test:
+      - CMD
+      - wget
+      - --quiet
+      - --spider
+      - http://127.0.0.1:3000/api/gesundheit
+      timeout: 5s
+    image: ghcr.io/motom001/dms:0.72.0@sha256:500b9b1011c3025f29a5876981ffba56a4a6e21d5d2bd9d4b05b9e6cb266dafa
+    init: true
+    networks:
+      ix-internal-app-name-dms-net: {}
+    platform: linux/amd64
+    ports:
+    - mode: ingress
+      protocol: tcp
+      published: 8080
+      target: 3000
+    privileged: false
+    restart: unless-stopped
+    security_opt:
+    - no-new-privileges=true
+    stdin_open: false
+    tty: false
+    volumes:
+    - bind:
+        create_host_path: true
+        propagation: rprivate
+      read_only: false
+      source: /opt/tests/mnt/dms/files
+      target: /data/files
+      type: bind
+    - bind:
+        create_host_path: true
+        propagation: rprivate
+      read_only: false
+      source: /opt/tests/mnt/dms/geheim
+      target: /data/geheim
+      type: bind
+    - bind:
+        create_host_path: true
+        propagation: rprivate
+      read_only: false
+      source: /opt/tests/mnt/dms/sicherung
+      target: /data/sicherung
+      type: bind
+  permissions:
+    cap_add:
+    - CHOWN
+    - DAC_OVERRIDE
+    - FOWNER
+    cap_drop:
+    - ALL
+    configs:
+    - mode: 320
+      source: permissions_actions_data
+      target: /script/actions.json
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1024M
+    entrypoint:
+    - python3
+    - /script/permissions.py
+    environment:
+      NVIDIA_VISIBLE_DEVICES: void
+      TZ: Etc/UTC
+      UMASK: '002'
+      UMASK_SET: '002'
+    group_add:
+    - 568
+    healthcheck:
+      disable: true
+    image: ghcr.io/truenas/containers/container-utils:1.1.2@sha256:6ddfdc314af9d18cfacb836ad266ef0ed91fecaa3686b20be72e464972860c08
+    network_mode: none
+    platform: linux/amd64
+    privileged: false
+    restart: on-failure:1
+    security_opt:
+    - no-new-privileges=true
+    stdin_open: false
+    tty: false
+    user: 0:0
+    volumes:
+    - bind:
+        create_host_path: true
+        propagation: rprivate
+      read_only: false
+      source: /opt/tests/mnt/dms/postgres-data
+      target: /mnt/permission/postgres_postgres_data
+      type: bind
+  postgres:
+    cap_drop:
+    - ALL
+    command:
+    - -c
+    - max_connections=100
+    depends_on:
+      permissions:
+        condition: service_completed_successfully
+      postgres_upgrade:
+        condition: service_completed_successfully
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2048M
+    environment:
+      NVIDIA_VISIBLE_DEVICES: void
+      PGDATA: /var/lib/postgresql/17/docker
+      PGPORT: '5432'
+      POSTGRES_DB: dms
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: dms
+      TZ: Etc/UTC
+      UMASK: '002'
+      UMASK_SET: '002'
+    group_add:
+    - 568
+    healthcheck:
+      interval: 30s
+      retries: 5
+      start_interval: 2s
+      start_period: 15s
+      test:
+      - CMD
+      - /usr/lib/postgresql/17/bin/pg_isready
+      - -h
+      - 127.0.0.1
+      - -p
+      - '5432'
+      - -U
+      - dms
+      - -d
+      - dms
+      timeout: 5s
+    image: postgres:17.11-bookworm@sha256:858bb5e98eed02eb8cafbcdc007f9a65d1b613972028944a8ec2133ccaf80d27
+    networks:
+      ix-internal-app-name-dms-net: {}
+    platform: linux/amd64
+    privileged: false
+    restart: unless-stopped
+    security_opt:
+    - no-new-privileges=true
+    shm_size: 256M
+    stdin_open: false
+    stop_grace_period: 60s
+    tty: false
+    user: 999:999
+    volumes:
+    - bind:
+        create_host_path: true
+        propagation: rprivate
+      read_only: false
+      source: /opt/tests/mnt/dms/postgres-data
+      target: /var/lib/postgresql
+      type: bind
+  postgres_upgrade:
+    cap_drop:
+    - ALL
+    depends_on:
+      permissions:
+        condition: service_completed_successfully
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1024M
+    entrypoint:
+    - /bin/bash
+    - -c
+    - /upgrade.sh
+    environment:
+      NVIDIA_VISIBLE_DEVICES: void
+      PGDATA: /var/lib/postgresql/17/docker
+      PGPORT: '5432'
+      POSTGRES_DB: dms
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: dms
+      TARGET_VERSION: '17'
+      TZ: Etc/UTC
+      UMASK: '002'
+      UMASK_SET: '002'
+    group_add:
+    - 568
+    healthcheck:
+      disable: true
+    image: ghcr.io/truenas/containers/postgres-upgrade:1.2.25@sha256:6d22237941a105d0b634b88f6b95db3c04e5a015550311924beda718f8598f6c
+    network_mode: none
+    platform: linux/amd64
+    privileged: false
+    restart: on-failure:1
+    security_opt:
+    - no-new-privileges=true
+    stdin_open: false
+    tty: false
+    user: 999:999
+    volumes:
+    - bind:
+        create_host_path: true
+        propagation: rprivate
+      read_only: false
+      source: /opt/tests/mnt/dms/postgres-data
+      target: /var/lib/postgresql
+      type: bind
+volumes: {}
+x-action-required: false
+x-notes: '# <app_name>
+
+
+  ## Security
+
+
+  **Read the following security precautions to ensure that you wish to continue using
+  this application.**
+
+
+  ---
+
+
+  ### Container: [dms]
+
+
+  #### Joined networks
+
+
+  - ix-internal-app-name-dms-net
+
+
+  #### Running user/group(s)
+
+
+  - User: unknown
+
+  - Group: unknown
+
+  - Supplementary Groups: apps
+
+
+  ---
+
+
+  ### Container: [postgres]
+
+
+  #### Joined networks
+
+
+  - ix-internal-app-name-dms-net
+
+
+  #### Running user/group(s)
+
+
+  - User: 999
+
+  - Group: 999
+
+  - Supplementary Groups: apps
+
+
+  ---
+
+
+  ### Container: [permissions]
+
+
+  **This container is short-lived.**
+
+
+  #### Running user/group(s)
+
+
+  - User: root
+
+  - Group: root
+
+  - Supplementary Groups: apps
+
+
+  ---
+
+
+  ### Container: [postgres_upgrade]
+
+
+  **This container is short-lived.**
+
+
+  #### Running user/group(s)
+
+
+  - User: 999
+
+  - Group: 999
+
+  - Supplementary Groups: apps
+
+
+  ---
+
+
+  ## Bug Reports and Feature Requests
+
+
+  If you find a bug in this app or have an idea for a new feature, please file an
+  issue at
+
+  https://github.com/truenas/apps
+
+  '
+x-portals:
+- host: 0.0.0.0
+  name: Web UI
+  path: /
+  port: 8080
+  scheme: http

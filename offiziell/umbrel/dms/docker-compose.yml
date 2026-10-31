@@ -1,0 +1,42 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: dms_server_1
+      APP_PORT: 3000
+      # Familienmitglieder melden sich mit ihrem eigenen DMS-Konto an; die Umbrel-Anmeldung hat nur
+      # der Besitzer des Geräts. Links aus E-Mails und die API (/api/v1) gehen ebenfalls ohne sie.
+      PROXY_AUTH_ADD: "false"
+
+  server:
+    image: ghcr.io/motom001/dms:0.72.0@sha256:500b9b1011c3025f29a5876981ffba56a4a6e21d5d2bd9d4b05b9e6cb266dafa
+    restart: on-failure
+    init: true
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Die Verbindung steht fest; der Einrichtungsassistent beginnt beim Mandanten (#176).
+      DATABASE_URL: postgres://dms:${APP_DMS_DB_PASSWORD}@dms_db_1:5432/dms
+      # Ohne Einrichtungscode: Er stünde nur im Protokoll des Containers.
+      DMS_EINRICHTUNGSCODE: "aus"
+    volumes:
+      - ${APP_DATA_DIR}/data/files:/data/files
+      - ${APP_DATA_DIR}/data/geheim:/data/geheim
+      - ${APP_DATA_DIR}/data/sicherung:/data/sicherung
+
+  db:
+    image: postgres:17-alpine@sha256:266d3c257594e195b309ae9d1805e54c788f1d7b375f56bf6c367aac6c917e7b
+    restart: on-failure
+    environment:
+      POSTGRES_DB: dms
+      POSTGRES_USER: dms
+      POSTGRES_PASSWORD: ${APP_DMS_DB_PASSWORD}
+    volumes:
+      - ${APP_DATA_DIR}/data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dms -d dms"]
+      interval: 10s
+      timeout: 5s
+      retries: 10

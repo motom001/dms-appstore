@@ -1,0 +1,104 @@
+name: dms
+
+services:
+  dms:
+    image: ghcr.io/motom001/dms:0.72.0@sha256:500b9b1011c3025f29a5876981ffba56a4a6e21d5d2bd9d4b05b9e6cb266dafa
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Die Verbindung steht fest; der Einrichtungsassistent beginnt beim Mandanten.
+      # Die Datenbank ist nur innerhalb dieser App erreichbar (kein Port nach außen).
+      DATABASE_URL: postgres://dms:dms-zimaos@db:5432/dms
+      # Ohne Einrichtungscode: Er stünde nur im Protokoll des Containers.
+      DMS_EINRICHTUNGSCODE: "aus"
+    ports:
+      - target: 3000
+        published: "8478"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/files
+        target: /data/files
+      - type: bind
+        source: /DATA/AppData/$AppID/geheim
+        target: /data/geheim
+      - type: bind
+        source: /DATA/AppData/$AppID/sicherung
+        target: /data/sicherung
+
+  db:
+    image: postgres:17-alpine@sha256:266d3c257594e195b309ae9d1805e54c788f1d7b375f56bf6c367aac6c917e7b
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: dms
+      POSTGRES_USER: dms
+      POSTGRES_PASSWORD: dms-zimaos
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/postgres
+        target: /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dms -d dms"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+x-casaos:
+  id: io.github.motom001.dms
+  main: dms
+  index: /
+  port_map: "8478"
+  scheme: http
+  icon: https://cdn.jsdelivr.net/gh/motom001/dms-appstore@main/Apps/DMS/icon.png
+  title:
+    en_US: DMS
+    de_DE: DMS
+  tagline:
+    en_US: Documents, contracts and paperwork of your household – organised in folders
+    de_DE: Verträge, Versicherungen, Steuer und alle Unterlagen deines Haushalts – geordnet in Mappen
+  description:
+    en_US: |
+      DMS is a self-hosted document management system for households and families. Contracts, insurance, tax, car, house, medical bills: every topic gets a folder with the fields you need, documents are searchable thanks to built-in text recognition, and reminders make sure no deadline is missed.
+
+      After installing, open the app: a setup assistant asks for the name of your household and creates the first administrator. The database is already connected. The user interface is in German.
+
+      - Folders with your own fields, registers and views
+      - Full-text search, also in scanned PDFs (OCR)
+      - Tasks, reminders, notes and a daily summary by e-mail
+      - Several users with roles and permissions
+      - Encrypted backups with an emergency sheet, restore in the browser
+    de_DE: |
+      DMS ist ein selbst gehostetes Dokumentenmanagement für Haushalte und Familien. Verträge, Versicherungen, Steuer, Auto, Haus, Arztrechnungen: Jedes Thema bekommt eine Mappe mit den Feldern, die du brauchst. Dank eingebauter Texterkennung findest du jedes Dokument wieder, und Erinnerungen sorgen dafür, dass keine Frist verstreicht.
+
+      Nach der Installation öffnest du die App: Ein Assistent fragt nach dem Namen deines Haushalts und legt den ersten Administrator an. Die Datenbank ist schon angebunden.
+
+      - Mappen mit eigenen Feldern, Registern und Sichten
+      - Volltextsuche, auch in eingescannten PDFs (Texterkennung)
+      - Aufgaben, Erinnerungen, Notizen und eine tägliche Zusammenfassung per E-Mail
+      - Mehrere Benutzer mit Rollen und Rechten
+      - Verschlüsselte Sicherungen mit Notfallblatt, Wiederherstellen im Browser
+  tips:
+    before_install:
+      en_US: Open the app right after installing and finish the setup assistant – until then everyone in your home network could do it. Afterwards, create a backup schedule under Werkbank → Sicherung and copy the backups to another place from time to time.
+      de_DE: Öffne die App direkt nach der Installation und schließe den Einrichtungsassistenten ab – bis dahin könnte das jeder in deinem Heimnetz tun. Lege danach unter Werkbank → Sicherung einen Zeitplan an und kopiere die Sicherungen ab und zu an einen anderen Ort.
+  author: motom001
+  developer: motom001
+  category: Productivity
+  architectures:
+    - amd64
+    - arm64
+  version: "0.72.0"
+  update_at: "2026-10-31"
+  release_notes:
+    en_US: "What is new: https://github.com/motom001/dms/releases/tag/v0.72.0"
+    de_DE: "Was neu ist: https://github.com/motom001/dms/releases/tag/v0.72.0"
+  website: https://motom001.github.io/dms/benutzer/aktuell/
+  repo: https://github.com/motom001/dms
+  support: https://github.com/motom001/dms/issues
+  docs: https://motom001.github.io/dms/admin/aktuell/
+  screenshot_link:
+    - https://cdn.jsdelivr.net/gh/motom001/dms-appstore@main/Apps/DMS/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/motom001/dms-appstore@main/Apps/DMS/screenshot-2.png
+    - https://cdn.jsdelivr.net/gh/motom001/dms-appstore@main/Apps/DMS/screenshot-3.png

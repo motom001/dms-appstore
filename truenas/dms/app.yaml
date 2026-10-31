@@ -1,0 +1,44 @@
+app_version: 0.72.0
+capabilities: []
+categories:
+- productivity
+changelog_url: https://github.com/motom001/dms/releases
+date_added: '2026-10-31'
+description: "DMS is a self-hosted document management system for households and families\
+  \ \u2013 contracts, insurance, tax and all paperwork in folders, with full-text\
+  \ search (OCR), tasks, reminders and encrypted backups. The user interface is in\
+  \ German."
+home: https://motom001.github.io/dms/
+host_mounts: []
+icon: https://media.sys.truenas.net/apps/dms/icons/icon.png
+keywords:
+- documents
+- dms
+- paperless
+- household
+lib_version: 2.3.18
+lib_version_hash: ed9839f681342ae8ca5f8c4c860ae22d0845a0919f472ba780d6edbc838f2633
+maintainers:
+- email: dev@truenas.com
+  name: truenas
+  url: https://www.truenas.com/
+name: dms
+run_as_context:
+- description: Container [dms] runs as root user and group.
+  gid: 0
+  group_name: Host group is [root]
+  uid: 0
+  user_name: Host user is [root]
+- description: Container [postgres] runs as non-root user and group.
+  gid: 999
+  group_name: Host group is [docker]
+  uid: 999
+  user_name: Host user is [netdata]
+screenshots: []
+sources:
+- https://apps.truenas.com/catalog/dms_community/
+- https://github.com/motom001/dms
+- https://motom001.github.io/dms/installieren/aktuell/truenas/
+title: DMS
+train: community
+version: 1.0.1
