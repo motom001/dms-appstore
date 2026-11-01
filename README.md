@@ -14,6 +14,8 @@ Danach steht **DMS** im App Store. Nach der Installation öffnest du die App. Ei
 
 Ausführlich unter [Wie komme ich an ein DMS? → App-Store](https://motom001.github.io/dms/installieren/aktuell/app-store/).
 
+Was als Nächstes kommt und wie wir arbeiten, steht im [Fahrplan](ROADMAP.md).
+
 ## Weitere Plattformen
 
 | Plattform | Ordner | Stand |
