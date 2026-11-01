@@ -1,5 +1,7 @@
 # DMS App Store
 
+**Deutsch** · [English](README.en.md)
+
 App-Store-Einträge für das [DMS](https://github.com/motom001/dms): Dokumentenmanagement für Haushalte und Familien. Damit installierst du das DMS auf einem Heimserver mit einem Klick, ohne Docker oder Kommandozeile.
 
 | System | So fügst du den Store hinzu |
@@ -44,4 +46,4 @@ Fehler und Wünsche bitte im [DMS-Repository](https://github.com/motom001/dms/is
 
 ## Lizenz
 
-[Apache-2.0](LICENSE), siehe auch [NOTICE](NOTICE). Store-Betreiber dürfen die Einträge frei übernehmen und anpassen. Für das DMS selbst gilt die Lizenz im [DMS-Repository](https://github.com/motom001/dms/blob/main/LICENSE).
+[Apache-2.0](LICENSE), siehe auch [NOTICE](NOTICE). Store-Betreiber dürfen die Einträge frei übernehmen und anpassen. Wer sie weitergibt, legt die Lizenz und die Hinweise aus NOTICE bei und kennzeichnet geänderte Dateien; den Quellcode einer veränderten Fassung offenzulegen ist nicht Pflicht. Für das DMS selbst gilt die Lizenz im [DMS-Repository](https://github.com/motom001/dms/blob/main/LICENSE).
