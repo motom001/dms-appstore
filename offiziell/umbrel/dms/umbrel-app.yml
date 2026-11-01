@@ -4,7 +4,7 @@ storage:
   dataRoot: data
 category: files
 name: DMS
-version: "0.87.1"
+version: "0.91.2"
 tagline: Documents, contracts and paperwork of your household – organised in folders
 description: >-
   DMS is a self-hosted document management system for households and families. Contracts,

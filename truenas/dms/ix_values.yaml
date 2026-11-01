@@ -1,7 +1,7 @@
 images:
   image:
     repository: ghcr.io/motom001/dms
-    tag: "0.87.1@sha256:d309764e247bfc4be0f910fc4633bdbcbd0a94355f427976d358ffbe360a0a8a"
+    tag: "0.91.2@sha256:45bc4339286c0e30c9c3f29e1b84ddbf2cfee95850bbb9c4445bdb9a9d5c3175"
   container_utils_image:
     repository: ghcr.io/truenas/containers/container-utils
     tag: "1.1.2@sha256:6ddfdc314af9d18cfacb836ad266ef0ed91fecaa3686b20be72e464972860c08"

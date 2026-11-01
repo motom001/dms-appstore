@@ -4,7 +4,7 @@ services:
   # dms-komplett (motom001/dms-appstore#5): DMS und PostgreSQL in einem Container. PostgreSQL lauscht
   # nur im Container, ohne Passwort – es gibt kein festes Datenbank-Passwort und keinen Datenbank-Port.
   dms:
-    image: ghcr.io/motom001/dms-komplett:0.87.1@sha256:a67e74037c265eb2e272896a237c9354d045743590ef702bcdf72e18b39860ac
+    image: ghcr.io/motom001/dms-komplett:0.91.2@sha256:a94fe779d6c6586c3a332ed83212b2482d19ef12c9eb4f7a905bd8677efb0eac
     restart: unless-stopped
     environment:
       # Ohne Einrichtungscode: Er stünde nur im Protokoll des Containers.
@@ -71,11 +71,11 @@ x-casaos:
   architectures:
     - amd64
     - arm64
-  version: "0.87.1"
+  version: "0.91.2"
   update_at: "2026-11-01"
   release_notes:
-    en_US: "What is new: https://github.com/motom001/dms/releases/tag/v0.87.1"
-    de_DE: "Was neu ist: https://github.com/motom001/dms/releases/tag/v0.87.1"
+    en_US: "What is new: https://github.com/motom001/dms/releases/tag/v0.91.2"
+    de_DE: "Was neu ist: https://github.com/motom001/dms/releases/tag/v0.91.2"
   website: https://motom001.github.io/dms/benutzer/aktuell/
   repo: https://github.com/motom001/dms
   support: https://github.com/motom001/dms/issues
