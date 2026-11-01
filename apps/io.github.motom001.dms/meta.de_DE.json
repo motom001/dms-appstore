@@ -1,9 +1,9 @@
 {
   "id": "io.github.motom001.dms",
   "title": "DMS",
+  "release_note": "Was neu ist: https://github.com/motom001/dms/releases/tag/v0.91.2",
   "description": "DMS ist ein selbst gehostetes Dokumentenmanagement für Haushalte und Familien. Verträge, Versicherungen, Steuer, Auto, Haus, Arztrechnungen: Jedes Thema bekommt eine Mappe mit den Feldern, die du brauchst. Dank eingebauter Texterkennung findest du jedes Dokument wieder, und Erinnerungen sorgen dafür, dass keine Frist verstreicht.\n\nNach der Installation öffnest du die App: Ein Assistent fragt nach dem Namen deines Haushalts und legt den ersten Administrator an. Die Datenbank ist schon angebunden.\n\n- Mappen mit eigenen Feldern, Registern und Sichten\n- Volltextsuche, auch in eingescannten PDFs (Texterkennung)\n- Aufgaben, Erinnerungen, Notizen und eine tägliche Zusammenfassung per E-Mail\n- Mehrere Benutzer mit Rollen und Rechten\n- Verschlüsselte Sicherungen mit Notfallblatt, Wiederherstellen im Browser\n",
   "tagline": "Verträge, Versicherungen, Steuer und alle Unterlagen deines Haushalts – geordnet in Mappen",
-  "release_note": "Was neu ist: https://github.com/motom001/dms/releases/tag/v0.87.1",
   "tips": {
     "before_install": "Öffne die App direkt nach der Installation und schließe den Einrichtungsassistenten ab – bis dahin könnte das jeder in deinem Heimnetz tun. Lege danach unter Werkbank → Sicherung einen Zeitplan an und kopiere die Sicherungen ab und zu an einen anderen Ort."
   }
