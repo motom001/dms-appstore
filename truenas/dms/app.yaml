@@ -1,9 +1,9 @@
-app_version: 0.73.10
+app_version: 0.87.1
 capabilities: []
 categories:
 - productivity
 changelog_url: https://github.com/motom001/dms/releases
-date_added: '2026-10-31'
+date_added: '2026-11-01'
 description: "DMS is a self-hosted document management system for households and families\
   \ \u2013 contracts, insurance, tax and all paperwork in folders, with full-text\
   \ search (OCR), tasks, reminders and encrypted backups. The user interface is in\
