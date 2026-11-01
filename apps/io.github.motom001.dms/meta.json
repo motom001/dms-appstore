@@ -11,7 +11,7 @@
     "amd64",
     "arm64"
   ],
-  "update_at": "2026-10-31",
+  "update_at": "2026-11-01",
   "website": "https://motom001.github.io/dms/benutzer/aktuell/",
   "repo": "https://github.com/motom001/dms",
   "support": "https://github.com/motom001/dms/issues",
@@ -22,16 +22,16 @@
     "/apps/io.github.motom001.dms/assets/screenshot-3.webp"
   ],
   "title": "DMS",
-  "release_note": "What is new: https://github.com/motom001/dms/releases/tag/v0.73.10",
+  "release_note": "What is new: https://github.com/motom001/dms/releases/tag/v0.87.1",
   "base_url": "https://cdn.jsdelivr.net/gh/motom001/dms-appstore@gh-pages",
   "id": "io.github.motom001.dms",
-  "version": "0.73.10",
+  "version": "0.87.1",
   "categories": [
     "productivity"
   ],
   "min_memory": 0,
   "min_image_size": {
-    "amd64": 113614841,
-    "arm64": 113129085
+    "amd64": 113925091,
+    "arm64": 113439006
   }
 }
