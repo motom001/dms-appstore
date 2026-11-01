@@ -41,3 +41,7 @@ Anleitungen ohne App-Store (Synology, QNAP, UGREEN, TrueNAS, Unraid, Docker) ste
 Der Workflow **Store aktualisieren** läuft täglich und nach Änderungen an den Vorlagen. Er holt das neueste DMS-Release, löst die Images für amd64 und arm64 auf ihren Digest auf und erzeugt die Einträge. Dann **installiert er sie probehalber**: Umbrel und ZimaOS/CasaOS starten, das DMS wird über die API eingerichtet, neu gestartet und die Anmeldung geprüft; TrueNAS läuft durch das Prüfwerkzeug des Katalogs. Erst dann checkt er ein und baut den ZimaOS-Store. Von Hand lässt er sich auch für eine bestimmte Version starten.
 
 Fehler und Wünsche bitte im [DMS-Repository](https://github.com/motom001/dms/issues) melden.
+
+## Lizenz
+
+[Apache-2.0](LICENSE), siehe auch [NOTICE](NOTICE). Store-Betreiber dürfen die Einträge frei übernehmen und anpassen. Für das DMS selbst gilt die Lizenz im [DMS-Repository](https://github.com/motom001/dms/blob/main/LICENSE).
