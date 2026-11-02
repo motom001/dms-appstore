@@ -4,7 +4,7 @@ services:
   # dms-komplett (motom001/dms-appstore#5): DMS und PostgreSQL in einem Container. PostgreSQL lauscht
   # nur im Container, ohne Passwort – es gibt kein festes Datenbank-Passwort und keinen Datenbank-Port.
   dms:
-    image: ghcr.io/motom001/dms-komplett:0.91.2@sha256:a94fe779d6c6586c3a332ed83212b2482d19ef12c9eb4f7a905bd8677efb0eac
+    image: ghcr.io/motom001/dms-komplett:0.138.0@sha256:1c1aecb108d0a90d674b980b6c021678b325fd651f634e74c4bb42ef6e1c7786
     restart: unless-stopped
     environment:
       # Ohne Einrichtungscode: Er stünde nur im Protokoll des Containers.
@@ -37,4 +37,4 @@ x-casaos:
   title:
     en_US: DMS
     de_DE: DMS
-  version: "0.91.2"
+  version: "0.138.0"
