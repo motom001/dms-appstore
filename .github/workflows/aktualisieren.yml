@@ -123,7 +123,7 @@ jobs:
           git clone --quiet --depth 1 https://github.com/truenas/apps.git "$RUNNER_TEMP/truenas-apps"
           rm -rf "$RUNNER_TEMP/truenas-apps/ix-dev/community/dms"
           cp -r truenas/dms "$RUNNER_TEMP/truenas-apps/ix-dev/community/dms"
-          pip install --quiet pyyaml psutil pytest pytest-cov bcrypt pydantic
+          pip install --quiet --require-hashes -r werkzeuge/requirements-truenas.txt
           cd "$RUNNER_TEMP/truenas-apps"
           # Neueste Bibliothek des Katalogs verwenden; ci.py trägt den Hash ein.
           lib=$(ls library | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -1)

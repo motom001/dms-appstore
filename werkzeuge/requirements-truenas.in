@@ -1,0 +1,9 @@
+# Python-Pakete für die Prüfwerkzeuge des TrueNAS-Katalogs (Schritt „TrueNAS-Katalog prüfen“).
+# Neu erzeugen nach einer Änderung hier (Python 3.12 wie auf ubuntu-latest):
+#   uv pip compile --python-version 3.12 --generate-hashes werkzeuge/requirements-truenas.in -o werkzeuge/requirements-truenas.txt
+pyyaml
+psutil
+pytest
+pytest-cov
+bcrypt
+pydantic
