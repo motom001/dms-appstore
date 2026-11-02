@@ -10,7 +10,7 @@ services:
       PROXY_AUTH_ADD: "false"
 
   server:
-    image: ghcr.io/motom001/dms:0.138.0@sha256:5ea1776bc72d021e486296abf0e69db66d393bcf7c65bce29700d7fb2376e336
+    image: ghcr.io/motom001/dms:0.140.2@sha256:1b6567777b24da58dbbfa6a2fefd1948a5da8bc9b12085b20d26ef9b9251d861
     restart: on-failure
     init: true
     depends_on:
