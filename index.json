@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-11-02T12:57:01Z",
+  "updated_at": "2026-11-02T13:42:36Z",
   "app_count": 1,
   "base_url": "https://cdn.jsdelivr.net/gh/motom001/dms-appstore@gh-pages",
   "apps": [
@@ -22,8 +22,8 @@
       "thumbnail": "",
       "compose_url": "/apps/io.github.motom001.dms/docker-compose.yml",
       "meta_url": "/apps/io.github.motom001.dms/meta.json",
-      "content_hash": "3859156e",
-      "version": "0.138.0"
+      "content_hash": "82a1f8c6",
+      "version": "0.140.2"
     }
   ]
 }
