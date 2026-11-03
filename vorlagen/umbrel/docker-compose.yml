@@ -5,7 +5,7 @@ services:
     environment:
       APP_HOST: motom001-dms_server_1
       APP_PORT: 3000
-      # Familienmitglieder melden sich mit ihrem eigenen DMS-Konto an; die Umbrel-Anmeldung hat nur
+      # Familienmitglieder melden sich mit ihrem eigenen Ablago-Konto an; die Umbrel-Anmeldung hat nur
       # der Besitzer des Geräts. Links aus E-Mails und die API (/api/v1) gehen ebenfalls ohne sie.
       PROXY_AUTH_ADD: "false"
 

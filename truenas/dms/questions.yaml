@@ -1,18 +1,18 @@
 groups:
-  - name: DMS Configuration
-    description: Configure DMS
+  - name: Ablago Configuration
+    description: Configure Ablago
   - name: Network Configuration
-    description: Configure Network for DMS
+    description: Configure Network for Ablago
   - name: Storage Configuration
-    description: Configure Storage for DMS
+    description: Configure Storage for Ablago
   - name: Labels Configuration
-    description: Configure Labels for DMS
+    description: Configure Labels for Ablago
   - name: Resources Configuration
-    description: Configure Resources for DMS
+    description: Configure Resources for Ablago
 
 questions:
   - variable: TZ
-    group: DMS Configuration
+    group: Ablago Configuration
     label: Timezone
     schema:
       type: string
@@ -22,7 +22,7 @@ questions:
         - definitions/timezone
   - variable: dms
     label: ""
-    group: DMS Configuration
+    group: Ablago Configuration
     schema:
       type: dict
       attrs:
@@ -741,14 +741,14 @@ questions:
             attrs:
               - variable: cpus
                 label: CPUs
-                description: CPUs limit for DMS.
+                description: CPUs limit for Ablago.
                 schema:
                   type: int
                   default: 2
                   required: true
               - variable: memory
                 label: Memory (in MB)
-                description: Memory limit for DMS.
+                description: Memory limit for Ablago.
                 schema:
                   type: int
                   default: 4096

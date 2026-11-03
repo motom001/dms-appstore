@@ -1,6 +1,6 @@
-# DMS
+# Ablago
 
-[DMS](https://github.com/motom001/dms) is a self-hosted document management system for households and families.
+[Ablago](https://ablago.app) is self-hosted document filing for home and small businesses. Handbook: https://help.ablago.app
 
 After installing, open the web UI: a setup assistant asks for the name of the household and creates the first administrator. The database is already connected. The user interface is in German.
 

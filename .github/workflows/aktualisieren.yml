@@ -83,7 +83,7 @@ jobs:
         run: |
           hole() {
             for h in benutzer admin; do
-              curl -fsSL -o "Apps/DMS/$2" "https://motom001.github.io/dms/$h/aktuell/bilder/$1.png" && return 0
+              curl -fsSL -o "Apps/DMS/$2" "https://help.ablago.app/$h/aktuell/bilder/$1.png" && return 0
             done
             echo "::warning::Screenshot $1 nicht gefunden – behalte den bisherigen"
           }

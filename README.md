@@ -1,8 +1,8 @@
-# DMS App Store
+# Ablago App Store
 
 **Deutsch** · [English](README.en.md)
 
-App-Store-Einträge für das [DMS](https://github.com/motom001/dms): Dokumentenmanagement für Haushalte und Familien. Damit installierst du das DMS auf einem Heimserver mit einem Klick, ohne Docker oder Kommandozeile.
+App-Store-Einträge für [Ablago](https://ablago.app) – Dokumentenablage für zu Hause und kleine Betriebe. Damit installierst du Ablago auf einem Heimserver mit einem Klick, ohne Docker oder Kommandozeile.
 
 | System | So fügst du den Store hinzu |
 | --- | --- |
@@ -10,11 +10,11 @@ App-Store-Einträge für das [DMS](https://github.com/motom001/dms): Dokumentenm
 | **ZimaOS** | App Store → *Quellen verwalten* → `https://cdn.jsdelivr.net/gh/motom001/dms-appstore@gh-pages` |
 | **CasaOS** | App Store → *Weitere Apps* → `https://github.com/motom001/dms-appstore/archive/refs/heads/main.zip` |
 
-Danach steht **DMS** im App Store. Nach der Installation öffnest du die App. Ein Assistent fragt nach dem Namen deines Haushalts und legt den ersten Administrator an. Die Datenbank ist schon angebunden.
+Danach steht **Ablago** im App Store. Nach der Installation öffnest du die App. Ein Assistent fragt nach dem Namen deines Haushalts und legt den ersten Administrator an. Die Datenbank ist schon angebunden.
 
 > **Gleich nach der Installation einrichten.** Bis der Administrator angelegt ist, könnte das jeder in deinem Heimnetz tun.
 
-Ausführlich unter [Wie komme ich an ein DMS? → App-Store](https://motom001.github.io/dms/installieren/aktuell/app-store/).
+Ausführlich unter [Wie komme ich an ein DMS? → App-Store](https://help.ablago.app/installieren/aktuell/app-store/).
 
 Was als Nächstes kommt und wie wir arbeiten, steht im [Fahrplan](ROADMAP.md).
 
@@ -28,7 +28,7 @@ Was als Nächstes kommt und wie wir arbeiten, steht im [Fahrplan](ROADMAP.md).
 | **Umbrel offiziell** | `offiziell/umbrel/dms/` (erzeugt) | bereit für einen PR an [getumbrel/umbrel-apps](https://github.com/getumbrel/umbrel-apps) ([#186](https://github.com/motom001/dms/issues/186)) |
 | **ZimaOS offiziell** | `Apps/DMS/` | dieselbe Datei für einen PR an [IceWhaleTech/CasaOS-AppStore](https://github.com/IceWhaleTech/CasaOS-AppStore) ([#186](https://github.com/motom001/dms/issues/186)) |
 
-Anleitungen ohne App-Store (Synology, QNAP, UGREEN, TrueNAS, Unraid, Docker) stehen unter [Wie komme ich an ein DMS?](https://motom001.github.io/dms/installieren/aktuell/).
+Anleitungen ohne App-Store (Synology, QNAP, UGREEN, TrueNAS, Unraid, Docker) stehen unter [Wie komme ich an ein DMS?](https://help.ablago.app/installieren/aktuell/).
 
 ## Aufbau
 
@@ -40,10 +40,10 @@ Anleitungen ohne App-Store (Synology, QNAP, UGREEN, TrueNAS, Unraid, Docker) ste
 | `Apps/DMS/`, `store-config.json`, `supported-languages.json` | ZimaOS/CasaOS (Compose erzeugt) |
 | Branch `gh-pages` | gebauter ZimaOS-Store (v2) |
 
-Der Workflow **Store aktualisieren** läuft täglich und nach Änderungen an den Vorlagen. Er holt das neueste DMS-Release, löst die Images für amd64 und arm64 auf ihren Digest auf und erzeugt die Einträge. Dann **installiert er sie probehalber**: Umbrel und ZimaOS/CasaOS starten, das DMS wird über die API eingerichtet, neu gestartet und die Anmeldung geprüft; TrueNAS läuft durch das Prüfwerkzeug des Katalogs. Erst dann checkt er ein und baut den ZimaOS-Store. Von Hand lässt er sich auch für eine bestimmte Version starten.
+Der Workflow **Store aktualisieren** läuft täglich und nach Änderungen an den Vorlagen. Er holt das neueste Ablago-Release, löst die Images für amd64 und arm64 auf ihren Digest auf und erzeugt die Einträge. Dann **installiert er sie probehalber**: Umbrel und ZimaOS/CasaOS starten, Ablago wird über die API eingerichtet, neu gestartet und die Anmeldung geprüft; TrueNAS läuft durch das Prüfwerkzeug des Katalogs. Erst dann checkt er ein und baut den ZimaOS-Store. Von Hand lässt er sich auch für eine bestimmte Version starten.
 
-Fehler und Wünsche bitte im [DMS-Repository](https://github.com/motom001/dms/issues) melden.
+Fehler und Wünsche bitte im [Ablago-Repository](https://github.com/motom001/dms/issues) melden.
 
 ## Lizenz
 
-[Apache-2.0](LICENSE), siehe auch [NOTICE](NOTICE). Store-Betreiber dürfen die Einträge frei übernehmen und anpassen. Wer sie weitergibt, legt die Lizenz und die Hinweise aus NOTICE bei und kennzeichnet geänderte Dateien; den Quellcode einer veränderten Fassung offenzulegen ist nicht Pflicht. Für das DMS selbst gilt die Lizenz im [DMS-Repository](https://github.com/motom001/dms/blob/main/LICENSE).
+[Apache-2.0](LICENSE), siehe auch [NOTICE](NOTICE). Store-Betreiber dürfen die Einträge frei übernehmen und anpassen. Wer sie weitergibt, legt die Lizenz und die Hinweise aus NOTICE bei und kennzeichnet geänderte Dateien; den Quellcode einer veränderten Fassung offenzulegen ist nicht Pflicht. Für Ablago selbst gilt die Lizenz im [Ablago-Repository](https://github.com/motom001/dms/blob/main/LICENSE).

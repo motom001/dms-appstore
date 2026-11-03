@@ -7,7 +7,7 @@
   <Privileged>false</Privileged>
   <Support>https://github.com/motom001/dms/issues</Support>
   <Project>https://github.com/motom001/dms</Project>
-  <Overview>Dokumentenmanagement für Haushalte und Familien: Verträge, Versicherungen, Steuer und alle Unterlagen in Mappen – mit Volltextsuche (Texterkennung), Aufgaben, Erinnerungen und verschlüsselten Sicherungen. Oberfläche auf Deutsch. Braucht die Vorlage „DMS-Datenbank“ (PostgreSQL 17) – zuerst diese installieren.</Overview>
+  <Overview>Ablago – Dokumentenablage für zu Hause und kleine Betriebe: Verträge, Versicherungen, Steuer und alle Unterlagen in Mappen – mit Volltextsuche (Texterkennung), Aufgaben, Erinnerungen und verschlüsselten Sicherungen. Oberfläche auf Deutsch. Braucht die Vorlage „DMS-Datenbank“ (PostgreSQL 17) – zuerst diese installieren.</Overview>
   <Category>Productivity:</Category>
   <WebUI>http://[IP]:[PORT:3000]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/motom001/dms-appstore/main/unraid/dms.xml</TemplateURL>
@@ -21,5 +21,5 @@
   <Config Name="Einrichtungscode" Target="DMS_EINRICHTUNGSCODE" Default="aus" Mode="" Description="aus: Einrichtung ohne Code – gleich nach dem Start einrichten" Type="Variable" Display="advanced" Required="false" Mask="false">aus</Config>
   <Config Name="Dateien" Target="/data/files" Default="/mnt/user/appdata/dms/files" Mode="rw" Description="Hochgeladene Dokumente" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/dms/files</Config>
   <Config Name="Schlüssel" Target="/data/geheim" Default="/mnt/user/appdata/dms/geheim" Mode="rw" Description="Schlüssel und Einrichtungscode" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/dms/geheim</Config>
-  <Config Name="Sicherungen" Target="/data/sicherung" Default="/mnt/user/appdata/dms/sicherung" Mode="rw" Description="Sicherungen des DMS – ab und zu an einen anderen Ort kopieren" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/dms/sicherung</Config>
+  <Config Name="Sicherungen" Target="/data/sicherung" Default="/mnt/user/appdata/dms/sicherung" Mode="rw" Description="Sicherungen von Ablago – ab und zu an einen anderen Ort kopieren" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/dms/sicherung</Config>
 </Container>

@@ -21,20 +21,20 @@ parameters:
     i18n:
       de-DE:
         name: Datenbank-Passwort
-        description: Ein langes Passwort aus Buchstaben und Zahlen. Es schützt die Datenbank des DMS.
+        description: Ein langes Passwort aus Buchstaben und Zahlen. Es schützt die Datenbank von Ablago.
       en-US:
         name: Database password
-        description: A long password of letters and digits. It protects the DMS database.
+        description: A long password of letters and digits. It protects the Ablago database.
 i18n:
   de-DE:
-    name: DMS
-    description: Dokumentenmanagement für Haushalte und Familien – Verträge, Versicherungen, Steuer und alle Unterlagen in Mappen, mit Volltextsuche, Aufgaben, Erinnerungen und verschlüsselten Sicherungen.
+    name: Ablago
+    description: Ablago – Dokumentenablage für zu Hause und kleine Betriebe. Verträge, Versicherungen, Steuer und alle Unterlagen in Mappen, mit Volltextsuche, Aufgaben, Erinnerungen und verschlüsselten Sicherungen.
     author: motom001
-    official: https://motom001.github.io/dms/
-    help: https://motom001.github.io/dms/installieren/aktuell/ugreen/
+    official: https://ablago.app
+    help: https://help.ablago.app/installieren/aktuell/ugreen/
   en-US:
-    name: DMS
-    description: Document management for households and families – contracts, insurance, tax and all paperwork in folders, with full-text search, tasks, reminders and encrypted backups. User interface in German.
+    name: Ablago
+    description: Ablago – document filing for home and small businesses. Contracts, insurance, tax and all paperwork in folders, with full-text search, tasks, reminders and encrypted backups. User interface in German.
     author: motom001
-    official: https://motom001.github.io/dms/
-    help: https://motom001.github.io/dms/installieren/aktuell/ugreen/
+    official: https://ablago.app
+    help: https://help.ablago.app/installieren/aktuell/ugreen/
