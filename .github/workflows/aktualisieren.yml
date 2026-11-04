@@ -41,6 +41,16 @@ jobs:
           WUNSCH: ${{ inputs.version }}
         run: |
           v="$WUNSCH"
+          # Ohne Wunsch: die Version, auf die ghcr.io/motom001/dms:stabil zeigt (motom001/dms#714) –
+          # so landet eine zurückgehaltene oder zurückgerollte Version nicht in den Stores.
+          # Gibt es :stabil noch nicht, das neueste Release.
+          if [ -z "$v" ] && stabil=$(docker buildx imagetools inspect ghcr.io/motom001/dms:stabil --format '{{json .Manifest}}' 2>/dev/null | jq -r .digest); then
+            for t in $(gh api "repos/motom001/dms/releases?per_page=30" --jq '.[] | select(.prerelease | not) | .tag_name'); do
+              d=$(docker buildx imagetools inspect "ghcr.io/motom001/dms:${t#v}" --format '{{json .Manifest}}' 2>/dev/null | jq -r .digest) || continue
+              [ "$d" = "$stabil" ] && { v="$t"; echo ":stabil = $t"; break; }
+            done
+            [ -n "$v" ] || echo "::warning:::stabil passt zu keinem der letzten 30 Releases – nehme das neueste Release."
+          fi
           [ -n "$v" ] || v=$(gh api repos/motom001/dms/releases/latest --jq .tag_name)
           v="${v#v}"
           echo "version=$v" >> "$GITHUB_OUTPUT"

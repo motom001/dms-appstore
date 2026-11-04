@@ -40,7 +40,7 @@ Anleitungen ohne App-Store (Synology, QNAP, UGREEN, TrueNAS, Unraid, Docker) ste
 | `Apps/DMS/`, `store-config.json`, `supported-languages.json` | ZimaOS/CasaOS (Compose erzeugt) |
 | Branch `gh-pages` | gebauter ZimaOS-Store (v2) |
 
-Der Workflow **Store aktualisieren** läuft täglich und nach Änderungen an den Vorlagen. Er holt das neueste Ablago-Release, löst die Images für amd64 und arm64 auf ihren Digest auf und erzeugt die Einträge. Dann **installiert er sie probehalber**: Umbrel und ZimaOS/CasaOS starten, Ablago wird über die API eingerichtet, neu gestartet und die Anmeldung geprüft; TrueNAS läuft durch das Prüfwerkzeug des Katalogs. Erst dann checkt er ein und baut den ZimaOS-Store. Von Hand lässt er sich auch für eine bestimmte Version starten.
+Der Workflow **Store aktualisieren** läuft täglich und nach Änderungen an den Vorlagen. Er holt die Ablago-Version, auf die das Image-Tag `:stabil` zeigt (bis es das gibt: das neueste Release), löst die Images für amd64 und arm64 auf ihren Digest auf und erzeugt die Einträge. Dann **installiert er sie probehalber**: Umbrel und ZimaOS/CasaOS starten, Ablago wird über die API eingerichtet, neu gestartet und die Anmeldung geprüft; TrueNAS läuft durch das Prüfwerkzeug des Katalogs. Erst dann checkt er ein und baut den ZimaOS-Store. Von Hand lässt er sich auch für eine bestimmte Version starten.
 
 Fehler und Wünsche bitte im [Ablago-Repository](https://github.com/motom001/dms/issues) melden.
 
