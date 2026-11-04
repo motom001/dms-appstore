@@ -3,11 +3,11 @@ id: dms
 storage:
   dataRoot: data
 category: files
-name: DMS
+name: Ablago
 version: "0.140.2"
-tagline: Documents, contracts and paperwork of your household – organised in folders
+tagline: Document filing for home and small businesses
 description: >-
-  DMS is a self-hosted document management system for households and families. Contracts,
+  Ablago is self-hosted document filing for home and small businesses. Contracts,
   insurance, tax, car, house, medical bills: every topic gets a folder with the fields you need,
   documents are searchable thanks to built-in text recognition, and reminders make sure no
   deadline is missed.
@@ -19,7 +19,7 @@ description: >-
 
 
   ⚠️ Everyone in your home network can reach the app until the setup is finished – open it right
-  after installing. Afterwards family members sign in with their own DMS accounts, which is why
+  after installing. Afterwards family members sign in with their own Ablago accounts, which is why
   the Umbrel login is not required in front of the app.
 
 
@@ -35,14 +35,14 @@ description: >-
 
   - Encrypted backups with an emergency sheet, restore in the browser
 
-  - Help for every screen in the built-in handbook link
+  - Help for every screen in the built-in handbook link (https://help.ablago.app)
 
 
-  DMS ist ein Dokumentenmanagement für Haushalte und Familien – mit Mappen, Volltextsuche,
+  Ablago – Dokumentenablage für zu Hause und kleine Betriebe: mit Mappen, Volltextsuche,
   Aufgaben, Erinnerungen und verschlüsselten Sicherungen. Die Oberfläche ist deutsch.
 releaseNotes: ""
 developer: motom001
-website: https://motom001.github.io/dms/benutzer/aktuell/
+website: https://ablago.app
 dependencies: []
 repo: https://github.com/motom001/dms
 support: https://github.com/motom001/dms/issues

@@ -1,12 +1,12 @@
 # Sicherheit
 
-Dieses Repository gehört zum DMS ([motom001/dms](https://github.com/motom001/dms)) und enthält: Einträge für die App-Stores (umbrelOS, ZimaOS, CasaOS, Unraid, TrueNAS, UGREEN).
+Dieses Repository gehört zu Ablago ([motom001/dms](https://github.com/motom001/dms)) und enthält: Einträge für die App-Stores (umbrelOS, ZimaOS, CasaOS, Unraid, TrueNAS, UGREEN).
 
 ## Eine Sicherheitslücke melden
 
 Bitte **kein öffentliches Issue** für Sicherheitslücken. Melde sie vertraulich über GitHub: **Security → Report a vulnerability** in diesem Repository ([Private Vulnerability Reporting](https://github.com/motom001/dms-appstore/security/advisories/new)).
 
-Betrifft die Lücke das DMS selbst, melde sie bitte direkt im Repository [motom001/dms](https://github.com/motom001/dms/security/advisories/new).
+Betrifft die Lücke Ablago selbst, melde sie bitte direkt im Repository [motom001/dms](https://github.com/motom001/dms/security/advisories/new).
 
 ## Was automatisch geprüft wird
 

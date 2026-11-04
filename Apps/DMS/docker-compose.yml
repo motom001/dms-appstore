@@ -1,7 +1,7 @@
 name: dms
 
 services:
-  # dms-komplett (motom001/dms-appstore#5): DMS und PostgreSQL in einem Container. PostgreSQL lauscht
+  # dms-komplett (motom001/dms-appstore#5): Ablago und PostgreSQL in einem Container. PostgreSQL lauscht
   # nur im Container, ohne Passwort – es gibt kein festes Datenbank-Passwort und keinen Datenbank-Port.
   dms:
     image: ghcr.io/motom001/dms-komplett:0.140.2@sha256:dc15b90b210206833aac77add17fe6f0ed26d36c6bdb65ead82db16535ff4763
@@ -35,14 +35,14 @@ x-casaos:
   scheme: http
   icon: https://cdn.jsdelivr.net/gh/motom001/dms-appstore@main/Apps/DMS/icon.png
   title:
-    en_US: DMS
-    de_DE: DMS
+    en_US: Ablago
+    de_DE: Ablago
   tagline:
-    en_US: Documents, contracts and paperwork of your household – organised in folders
-    de_DE: Verträge, Versicherungen, Steuer und alle Unterlagen deines Haushalts – geordnet in Mappen
+    en_US: Document filing for home and small businesses
+    de_DE: Dokumentenablage für zu Hause und kleine Betriebe
   description:
     en_US: |
-      DMS is a self-hosted document management system for households and families. Contracts, insurance, tax, car, house, medical bills: every topic gets a folder with the fields you need, documents are searchable thanks to built-in text recognition, and reminders make sure no deadline is missed.
+      Ablago is self-hosted document filing for home and small businesses. Contracts, insurance, tax, car, house, medical bills: every topic gets a folder with the fields you need, documents are searchable thanks to built-in text recognition, and reminders make sure no deadline is missed.
 
       After installing, open the app: a setup assistant asks for the name of your household and creates the first administrator. The database is already connected. The user interface is in German.
 
@@ -52,7 +52,7 @@ x-casaos:
       - Several users with roles and permissions
       - Encrypted backups with an emergency sheet, restore in the browser
     de_DE: |
-      DMS ist ein selbst gehostetes Dokumentenmanagement für Haushalte und Familien. Verträge, Versicherungen, Steuer, Auto, Haus, Arztrechnungen: Jedes Thema bekommt eine Mappe mit den Feldern, die du brauchst. Dank eingebauter Texterkennung findest du jedes Dokument wieder, und Erinnerungen sorgen dafür, dass keine Frist verstreicht.
+      Ablago ist eine selbst gehostete Dokumentenablage für zu Hause und kleine Betriebe. Verträge, Versicherungen, Steuer, Auto, Haus, Arztrechnungen: Jedes Thema bekommt eine Mappe mit den Feldern, die du brauchst. Dank eingebauter Texterkennung findest du jedes Dokument wieder, und Erinnerungen sorgen dafür, dass keine Frist verstreicht.
 
       Nach der Installation öffnest du die App: Ein Assistent fragt nach dem Namen deines Haushalts und legt den ersten Administrator an. Die Datenbank ist schon angebunden.
 
@@ -76,10 +76,10 @@ x-casaos:
   release_notes:
     en_US: "What is new: https://github.com/motom001/dms/releases/tag/v0.140.2"
     de_DE: "Was neu ist: https://github.com/motom001/dms/releases/tag/v0.140.2"
-  website: https://motom001.github.io/dms/benutzer/aktuell/
+  website: https://ablago.app
   repo: https://github.com/motom001/dms
   support: https://github.com/motom001/dms/issues
-  docs: https://motom001.github.io/dms/admin/aktuell/
+  docs: https://help.ablago.app/admin/aktuell/
   screenshot_link:
     - https://cdn.jsdelivr.net/gh/motom001/dms-appstore@main/Apps/DMS/screenshot-1.png
     - https://cdn.jsdelivr.net/gh/motom001/dms-appstore@main/Apps/DMS/screenshot-2.png
