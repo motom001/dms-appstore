@@ -4,7 +4,7 @@ storage:
   dataRoot: data
 category: files
 name: Ablago
-version: "0.140.2"
+version: "0.156.1"
 tagline: Document filing for home and small businesses
 icon: https://cdn.jsdelivr.net/gh/motom001/dms-appstore@main/Apps/DMS/icon.png
 description: >-
@@ -42,7 +42,7 @@ description: >-
   Ablago – Dokumentenablage für zu Hause und kleine Betriebe: mit Mappen, Volltextsuche,
   Aufgaben, Erinnerungen und verschlüsselten Sicherungen. Die Oberfläche ist deutsch.
 releaseNotes: >-
-  What is new: https://github.com/motom001/dms/releases/tag/v0.140.2
+  What is new: https://github.com/motom001/dms/releases/tag/v0.156.1
 developer: motom001
 website: https://ablago.app
 dependencies: []

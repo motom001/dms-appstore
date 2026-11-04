@@ -4,7 +4,7 @@ storage:
   dataRoot: data
 category: files
 name: Ablago
-version: "0.140.2"
+version: "0.156.1"
 tagline: Document filing for home and small businesses
 description: >-
   Ablago is self-hosted document filing for home and small businesses. Contracts,

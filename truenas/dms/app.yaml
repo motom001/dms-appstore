@@ -1,13 +1,12 @@
-app_version: 0.140.2
+app_version: 0.156.1
 capabilities: []
 categories:
 - productivity
 changelog_url: https://github.com/motom001/dms/releases
-date_added: '2026-11-02'
-description: "Ablago \u2013 document filing for home and small businesses. Self-hosted, for\
-  \ contracts, insurance, tax and all paperwork in folders, with full-text\
-  \ search (OCR), tasks, reminders and encrypted backups. The user interface is in\
-  \ German."
+date_added: '2026-11-04'
+description: "Ablago \u2013 document filing for home and small businesses. Self-hosted,\
+  \ for contracts, insurance, tax and all paperwork in folders, with full-text search\
+  \ (OCR), tasks, reminders and encrypted backups. The user interface is in German."
 home: https://ablago.app
 host_mounts: []
 icon: https://media.sys.truenas.net/apps/dms/icons/icon.png
