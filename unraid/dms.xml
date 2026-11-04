@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>Ablago</Name>
-  <Repository>ghcr.io/motom001/dms:main</Repository>
+  <Repository>ghcr.io/motom001/dms:stabil</Repository>
   <Registry>https://github.com/motom001/dms/pkgs/container/dms</Registry>
   <Network>bridge</Network>
   <Privileged>false</Privileged>
