@@ -1,10 +1,10 @@
 name: dms
 
 services:
-  # dms-komplett (motom001/dms-appstore#5): DMS und PostgreSQL in einem Container. PostgreSQL lauscht
+  # dms-komplett (motom001/dms-appstore#5): Ablago und PostgreSQL in einem Container. PostgreSQL lauscht
   # nur im Container, ohne Passwort – es gibt kein festes Datenbank-Passwort und keinen Datenbank-Port.
   dms:
-    image: ghcr.io/motom001/dms-komplett:0.140.2@sha256:dc15b90b210206833aac77add17fe6f0ed26d36c6bdb65ead82db16535ff4763
+    image: ghcr.io/motom001/dms-komplett:0.156.1@sha256:2e7adef7321efcd534ec3db8e2cdbdd1741a68a064f39e5d0a5161a873e9081a
     restart: unless-stopped
     environment:
       # Ohne Einrichtungscode: Er stünde nur im Protokoll des Containers.
@@ -35,6 +35,6 @@ x-casaos:
   scheme: http
   icon: https://cdn.jsdelivr.net/gh/motom001/dms-appstore@gh-pages/apps/io.github.motom001.dms/assets/icon.png
   title:
-    en_US: DMS
-    de_DE: DMS
-  version: "0.140.2"
+    en_US: Ablago
+    de_DE: Ablago
+  version: "0.156.1"

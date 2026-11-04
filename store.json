@@ -1,8 +1,8 @@
 {
   "version": 2,
   "store_id": "motom001-dms",
-  "name": "DMS App Store",
-  "description": "DMS – document management for households and families.",
+  "name": "Ablago App Store",
+  "description": "Ablago – document filing for home and small businesses.",
   "maintainer": "motom001",
   "url": "https://github.com/motom001/dms-appstore"
 }

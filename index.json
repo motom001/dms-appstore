@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "updated_at": "2026-11-02T13:42:36Z",
+  "updated_at": "2026-11-04T00:10:02Z",
   "app_count": 1,
   "base_url": "https://cdn.jsdelivr.net/gh/motom001/dms-appstore@gh-pages",
   "apps": [
     {
       "id": "io.github.motom001.dms",
-      "title": "DMS",
-      "tagline": "Documents, contracts and paperwork of your household – organised in folders",
+      "title": "Ablago",
+      "tagline": "Document filing for home and small businesses",
       "category": "Productivity",
       "categories": [
         "productivity"
@@ -22,8 +22,8 @@
       "thumbnail": "",
       "compose_url": "/apps/io.github.motom001.dms/docker-compose.yml",
       "meta_url": "/apps/io.github.motom001.dms/meta.json",
-      "content_hash": "82a1f8c6",
-      "version": "0.140.2"
+      "content_hash": "6e2c8c42",
+      "version": "0.156.1"
     }
   ]
 }
