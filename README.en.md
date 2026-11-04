@@ -30,6 +30,8 @@ What comes next and how we work is described in the [roadmap](ROADMAP.md) (Germa
 | **Umbrel official** | `offiziell/umbrel/dms/` (generated) | ready for a PR to [getumbrel/umbrel-apps](https://github.com/getumbrel/umbrel-apps) ([#186](https://github.com/motom001/dms/issues/186)) |
 | **ZimaOS official** | `Apps/DMS/` | the same file for a PR to [IceWhaleTech/CasaOS-AppStore](https://github.com/IceWhaleTech/CasaOS-AppStore) ([#186](https://github.com/motom001/dms/issues/186)) |
 
+How to submit to the official stores: [EINREICHEN.md](EINREICHEN.md) (German).
+
 Guides without an app store (Synology, QNAP, UGREEN, TrueNAS, Unraid, Docker) are in the installation manual under [How do I get a DMS?](https://help.ablago.app/installieren/aktuell/) (German).
 
 ## Layout
