@@ -4,7 +4,7 @@ services:
   # dms-komplett (motom001/dms-appstore#5): Ablago und PostgreSQL in einem Container. PostgreSQL lauscht
   # nur im Container, ohne Passwort – es gibt kein festes Datenbank-Passwort und keinen Datenbank-Port.
   dms:
-    image: ghcr.io/motom001/dms-komplett:0.165.2@sha256:5fc82d0ddd7a8d74e5cca4a135ecc4571c844f79b391a3a27fea2ff555d0b296
+    image: ghcr.io/motom001/dms-komplett:0.205.1@sha256:c784d28359c16cbd710ea447a4f9bf5c7ac920f63f93620bc9e49b3172ea822f
     restart: unless-stopped
     environment:
       # Ohne Einrichtungscode: Er stünde nur im Protokoll des Containers.
@@ -71,11 +71,11 @@ x-casaos:
   architectures:
     - amd64
     - arm64
-  version: "0.165.2"
-  update_at: "2026-11-04"
+  version: "0.205.1"
+  update_at: "2026-11-05"
   release_notes:
-    en_US: "What is new: https://github.com/motom001/dms/releases/tag/v0.165.2"
-    de_DE: "Was neu ist: https://github.com/motom001/dms/releases/tag/v0.165.2"
+    en_US: "What is new: https://github.com/motom001/dms/releases/tag/v0.205.1"
+    de_DE: "Was neu ist: https://github.com/motom001/dms/releases/tag/v0.205.1"
   website: https://ablago.app
   repo: https://github.com/motom001/dms
   support: https://github.com/motom001/dms/issues

@@ -43,7 +43,7 @@ services:
       - --spider
       - http://127.0.0.1:3000/api/gesundheit
       timeout: 5s
-    image: ghcr.io/motom001/dms:0.165.2@sha256:5c3c1a35e3c8795fef8ba68e7fb8d1cc2d770d75684a5e24bef807d06b2b4e41
+    image: ghcr.io/motom001/dms:0.205.1@sha256:9357547483d93be5e45bba8d019afdfe3bd9bd2602f71ef9afe0638bca231427
     init: true
     networks:
       ix-internal-app-name-dms-net: {}
