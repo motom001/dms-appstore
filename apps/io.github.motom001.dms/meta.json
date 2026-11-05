@@ -11,7 +11,7 @@
     "amd64",
     "arm64"
   ],
-  "update_at": "2026-11-04",
+  "update_at": "2026-11-05",
   "website": "https://ablago.app",
   "repo": "https://github.com/motom001/dms",
   "support": "https://github.com/motom001/dms/issues",
@@ -22,16 +22,16 @@
     "/apps/io.github.motom001.dms/assets/screenshot-3.webp"
   ],
   "title": "Ablago",
-  "release_note": "What is new: https://github.com/motom001/dms/releases/tag/v0.165.2",
+  "release_note": "What is new: https://github.com/motom001/dms/releases/tag/v0.205.1",
   "base_url": "https://cdn.jsdelivr.net/gh/motom001/dms-appstore@gh-pages",
   "id": "io.github.motom001.dms",
-  "version": "0.165.2",
+  "version": "0.205.1",
   "categories": [
     "productivity"
   ],
   "min_memory": 0,
   "min_image_size": {
-    "amd64": 105585167,
-    "arm64": 105052938
+    "amd64": 112510199,
+    "arm64": 111978590
   }
 }
