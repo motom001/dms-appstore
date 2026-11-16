@@ -4,13 +4,13 @@
 
 App-Store-Einträge für [Ablago](https://ablago.app) – Dokumentenablage für zu Hause und kleine Betriebe. Damit installierst du Ablago auf einem Heimserver mit einem Klick, ohne Docker oder Kommandozeile.
 
-| System | So fügst du den Store hinzu |
+| System | So fügst du den Ablago-Store hinzu |
 | --- | --- |
 | **umbrelOS** | App Store → ⋯ (oben rechts) → *Community App Stores* → `https://github.com/motom001/dms-appstore` |
 | **ZimaOS** | App Store → *Quellen verwalten* → `https://cdn.jsdelivr.net/gh/motom001/dms-appstore@gh-pages` |
 | **CasaOS** | App Store → *Weitere Apps* → `https://github.com/motom001/dms-appstore/archive/refs/heads/main.zip` |
 
-Danach steht **Ablago** im App Store. Nach der Installation öffnest du die App. Ein Assistent fragt nach dem Namen deines Haushalts und legt den ersten Administrator an. Die Datenbank ist schon angebunden.
+Danach steht **Ablago** im App Store – der Ablago-Store ist eine zusätzliche Quelle neben dem eingebauten Store des Systems. Nach der Installation öffnest du die App. Ein Assistent fragt nach dem Namen deines Haushalts und legt den ersten Administrator an. Die Datenbank ist schon angebunden.
 
 > **Gleich nach der Installation einrichten.** Bis der Administrator angelegt ist, könnte das jeder in deinem Heimnetz tun.
 
