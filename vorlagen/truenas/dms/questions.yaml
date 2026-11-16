@@ -106,7 +106,7 @@ questions:
                 label: Port Number
                 schema:
                   type: int
-                  default: 30553
+                  default: 30587
                   min: 1
                   max: 65535
                   required: true
