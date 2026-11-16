@@ -16,7 +16,7 @@ description: >-
 
   After installing, open the app: a setup assistant asks for the name of your household and
   creates the first administrator. The database is already connected. The user interface is
-  in German.
+  available in German and English; further languages can be added as packages.
 
 
   ⚠️ Everyone in your home network can reach the app until the setup is finished – open it right
@@ -40,7 +40,7 @@ description: >-
 
 
   Ablago – Dokumentenablage für zu Hause und kleine Betriebe: mit Mappen, Volltextsuche,
-  Aufgaben, Erinnerungen und verschlüsselten Sicherungen. Die Oberfläche ist deutsch.
+  Aufgaben, Erinnerungen und verschlüsselten Sicherungen. Oberfläche auf Deutsch und Englisch.
 releaseNotes: >-
   {{HINWEISE}}
 developer: motom001

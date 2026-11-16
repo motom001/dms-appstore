@@ -4,15 +4,15 @@
 
 App store entries for [Ablago](https://ablago.app) – document filing for home and small businesses. With them you install Ablago on a home server with one click, without Docker or a command line.
 
-> **Ablago itself is in German so far** – its user interface and its manuals. An English user interface is planned ([dms #357](https://github.com/motom001/dms/issues/357)). This README is a translation; if it differs from the German [README.md](README.md), the German version applies.
+> **The user interface of Ablago is available in German and English**; further languages can be added as packages. This README is a translation; if it differs from the German [README.md](README.md), the German version applies.
 
-| System | How to add the store |
+| System | How to add the Ablago store |
 | --- | --- |
 | **umbrelOS** | App Store → ⋯ (top right) → *Community App Stores* → `https://github.com/motom001/dms-appstore` |
 | **ZimaOS** | App Store → manage sources (*Quellen verwalten* in the German interface) → `https://cdn.jsdelivr.net/gh/motom001/dms-appstore@gh-pages` |
 | **CasaOS** | App Store → more apps (*Weitere Apps* in the German interface) → `https://github.com/motom001/dms-appstore/archive/refs/heads/main.zip` |
 
-After that, **Ablago** appears in the app store. Once it is installed, open the app. A wizard asks for the name of your household and creates the first administrator. The database is already connected.
+After that, **Ablago** appears in the app store – the Ablago store is an additional source next to the system's built-in store. Once it is installed, open the app. A wizard asks for the name of your household and creates the first administrator. The database is already connected.
 
 > **Set it up right after installing.** Until the administrator has been created, anyone in your home network could do it.
 
