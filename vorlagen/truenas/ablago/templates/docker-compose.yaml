@@ -21,6 +21,8 @@
    motom001/dms#1354). Ein eigener Benutzer für die Dokumentwerkzeuge braucht diesen Start als root.
    PUID und PGID setzt die Bibliothek selbst aus run_as. #}
 {% do c.set_user(0, 0) %}
+{# Für den Start: Ordner übernehmen und den Benutzer wechseln (wie Paperless-ngx im Katalog). #}
+{% do c.add_caps(["CHOWN", "DAC_OVERRIDE", "FOWNER", "SETGID", "SETUID"]) %}
 {% do c.healthcheck.set_test("wget", {"port": 3000, "path": "/api/gesundheit", "busybox": true}) %}
 {% do c.depends.add_dependency(values.consts.postgres_container_name, "service_healthy") %}
 
