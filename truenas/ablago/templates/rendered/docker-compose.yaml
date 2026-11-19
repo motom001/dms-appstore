@@ -2,7 +2,14 @@ configs:
   permissions_actions_data:
     content: '[{"read_only": false, "mount_path": "/mnt/permission/postgres_postgres_data",
       "is_temporary": false, "identifier": "postgres_postgres_data", "recursive":
-      false, "mode": "check", "uid": 999, "gid": 999, "chmod": null}]'
+      false, "mode": "check", "uid": 999, "gid": 999, "chmod": null}, {"read_only":
+      false, "mount_path": "/mnt/permission/files", "is_temporary": false, "identifier":
+      "files", "recursive": false, "mode": "check", "uid": 568, "gid": 568, "chmod":
+      null}, {"read_only": false, "mount_path": "/mnt/permission/geheim", "is_temporary":
+      false, "identifier": "geheim", "recursive": false, "mode": "check", "uid": 568,
+      "gid": 568, "chmod": null}, {"read_only": false, "mount_path": "/mnt/permission/sicherung",
+      "is_temporary": false, "identifier": "sicherung", "recursive": false, "mode":
+      "check", "uid": 568, "gid": 568, "chmod": null}]'
 networks:
   ix-internal-app-name-dms-net:
     enable_ipv6: false
@@ -11,10 +18,18 @@ networks:
       tn.network.internal: 'true'
     name: ix-internal-app-name-dms-net
 services:
-  dms:
+  ablago:
+    cap_add:
+    - CHOWN
+    - DAC_OVERRIDE
+    - FOWNER
+    - SETGID
+    - SETUID
     cap_drop:
     - ALL
     depends_on:
+      permissions:
+        condition: service_completed_successfully
       postgres:
         condition: service_healthy
     deploy:
@@ -25,10 +40,16 @@ services:
     environment:
       DATABASE_URL: postgres://dms:password@postgres:5432/dms?sslmode=disable
       DMS_EINRICHTUNGSCODE: aus
+      GID: '568'
+      GROUP_ID: '568'
       NVIDIA_VISIBLE_DEVICES: void
+      PGID: '568'
+      PUID: '568'
       TZ: Etc/UTC
+      UID: '568'
       UMASK: '002'
       UMASK_SET: '002'
+      USER_ID: '568'
     group_add:
     - 568
     healthcheck:
@@ -43,8 +64,7 @@ services:
       - --spider
       - http://127.0.0.1:3000/api/gesundheit
       timeout: 5s
-    image: ghcr.io/motom001/dms:0.290.10@sha256:96a9f5710bd0eceea6dba59104893b4e807e1c1d26454b8905b4c6357aa17cfd
-    init: true
+    image: ghcr.io/motom001/dms:0.299.2@sha256:877b3946feaea773fead81865c95b8b3e92469ff0f3f7deff9464fc946cd3e95
     networks:
       ix-internal-app-name-dms-net: {}
     platform: linux/amd64
@@ -59,6 +79,7 @@ services:
     - no-new-privileges=true
     stdin_open: false
     tty: false
+    user: 0:0
     volumes:
     - bind:
         create_host_path: true
@@ -101,10 +122,16 @@ services:
     - python3
     - /script/permissions.py
     environment:
+      GID: '568'
+      GROUP_ID: '568'
       NVIDIA_VISIBLE_DEVICES: void
+      PGID: '568'
+      PUID: '568'
       TZ: Etc/UTC
+      UID: '568'
       UMASK: '002'
       UMASK_SET: '002'
+      USER_ID: '568'
     group_add:
     - 568
     healthcheck:
@@ -124,8 +151,29 @@ services:
         create_host_path: true
         propagation: rprivate
       read_only: false
+      source: /opt/tests/mnt/dms/files
+      target: /mnt/permission/files
+      type: bind
+    - bind:
+        create_host_path: true
+        propagation: rprivate
+      read_only: false
+      source: /opt/tests/mnt/dms/geheim
+      target: /mnt/permission/geheim
+      type: bind
+    - bind:
+        create_host_path: true
+        propagation: rprivate
+      read_only: false
       source: /opt/tests/mnt/dms/postgres-data
       target: /mnt/permission/postgres_postgres_data
+      type: bind
+    - bind:
+        create_host_path: true
+        propagation: rprivate
+      read_only: false
+      source: /opt/tests/mnt/dms/sicherung
+      target: /mnt/permission/sicherung
       type: bind
   postgres:
     cap_drop:
@@ -144,15 +192,21 @@ services:
           cpus: '2.0'
           memory: 2048M
     environment:
+      GID: '568'
+      GROUP_ID: '568'
       NVIDIA_VISIBLE_DEVICES: void
       PGDATA: /var/lib/postgresql/17/docker
+      PGID: '568'
       PGPORT: '5432'
       POSTGRES_DB: dms
       POSTGRES_PASSWORD: password
       POSTGRES_USER: dms
+      PUID: '568'
       TZ: Etc/UTC
+      UID: '568'
       UMASK: '002'
       UMASK_SET: '002'
+      USER_ID: '568'
     group_add:
     - 568
     healthcheck:
@@ -209,16 +263,22 @@ services:
     - -c
     - /upgrade.sh
     environment:
+      GID: '568'
+      GROUP_ID: '568'
       NVIDIA_VISIBLE_DEVICES: void
       PGDATA: /var/lib/postgresql/17/docker
+      PGID: '568'
       PGPORT: '5432'
       POSTGRES_DB: dms
       POSTGRES_PASSWORD: password
       POSTGRES_USER: dms
+      PUID: '568'
       TARGET_VERSION: '17'
       TZ: Etc/UTC
+      UID: '568'
       UMASK: '002'
       UMASK_SET: '002'
+      USER_ID: '568'
     group_add:
     - 568
     healthcheck:
@@ -256,7 +316,7 @@ x-notes: '# <app_name>
   ---
 
 
-  ### Container: [dms]
+  ### Container: [ablago]
 
 
   #### Joined networks
@@ -268,9 +328,9 @@ x-notes: '# <app_name>
   #### Running user/group(s)
 
 
-  - User: unknown
+  - User: root
 
-  - Group: unknown
+  - Group: root
 
   - Supplementary Groups: apps
 
