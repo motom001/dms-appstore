@@ -186,8 +186,8 @@ questions:
                                     type: string
                                     required: true
                                     enum:
-                                      - value: dms
-                                        description: dms
+                                      - value: ablago
+                                        description: ablago
                                       - value: postgres
                                         description: postgres
                                 - variable: config
@@ -747,8 +747,8 @@ questions:
                         type: string
                         required: true
                         enum:
-                          - value: dms
-                            description: dms
+                          - value: ablago
+                            description: ablago
                           - value: postgres
                             description: postgres
   - variable: resources
