@@ -16,7 +16,7 @@
 {% set postgres = tpl.deps.postgres(values.consts.postgres_container_name, values.dms.postgres_image_selector, pg_config, perm_container) %}
 {% do postgres.container.add_network(dms_net) %}
 
-{% do c.set_init(true) %}
+{# Kein set_init: Das Image startet selbst mit tini als PID 1. #}
 {# Ablago startet als root, richtet die Ordner für PUID:PGID ein und läuft dann ohne root weiter (ab 0.299.0,
    motom001/dms#1354). Ein eigener Benutzer für die Dokumentwerkzeuge braucht diesen Start als root.
    PUID und PGID setzt die Bibliothek selbst aus run_as. #}
