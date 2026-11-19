@@ -27,11 +27,11 @@ yaml.safe_dump(d, open(sys.argv[1], 'w'))
 PY
     export APP_DATA_DIR="$arbeit/app" APP_MOTOM001_DMS_DB_PASSWORD="$(openssl rand -hex 32)"
     for o in files geheim sicherung postgres; do mkdir -p "$APP_DATA_DIR/data/$o"; done
-    PORT=18478
+    PORT=18478 DIENST=server
     ;;
   casaos)
     sed "s#/DATA/AppData/\$AppID#$arbeit/app#g" Apps/DMS/docker-compose.yml > "$compose"
-    PORT=8478
+    PORT=8478 DIENST=dms
     ;;
   *) echo "unbekannt: $ART"; exit 2 ;;
 esac
@@ -62,8 +62,19 @@ fi
 [ "$(echo "$status" | jq -r '.einrichtung.code')" = false ] || { echo "::error::$ART: Einrichtungscode verlangt"; exit 1; }
 
 # Einrichten wie im Assistenten (ohne Code), dann neu starten: Mandant und Administrator bleiben.
-curl -fsS -X POST "http://127.0.0.1:$PORT/api/konto/einrichten" -H 'x-dms: 1' -H 'content-type: application/json' \
-  -d '{"mandant":"Familie Probe","name":"Admin","email":"admin@probe.invalid","passwort":"ein-langes-probe-passwort"}' >/dev/null
+# Ohne Code richtet Ablago nur aus dem Heimnetz ein (motom001/dms#1359). Vom Host über den veröffentlichten Port kommt
+# die Anfrage hier über das Docker-Gateway, und das gilt seit #1355/#1463 nicht als Heimnetz. Deshalb schickt sie ein
+# Container im selben Netz – wie ein Gerät im Heimnetz bzw. der app_proxy von Umbrel. Dafür reicht Node aus dem
+# Ablago-Image selbst, ohne weiteres Image.
+c=$(dc ps -q "$DIENST")
+netz=$(docker inspect -f '{{range $k, $v := .NetworkSettings.Networks}}{{$k}}{{"\n"}}{{end}}' "$c" | head -1)
+bild=$(docker inspect -f '{{.Config.Image}}' "$c")
+docker run --rm --network "$netz" --entrypoint node "$bild" -e '
+  fetch("http://'"$DIENST"':3000/api/konto/einrichten", { method: "POST",
+    headers: { "x-dms": "1", "content-type": "application/json" },
+    body: JSON.stringify({ mandant: "Familie Probe", name: "Admin", email: "admin@probe.invalid", passwort: "ein-langes-probe-passwort" }) })
+  .then(async (r) => { if (!r.ok) { console.error(r.status, await r.text()); process.exit(1); } })
+  .catch((e) => { console.error(e); process.exit(1); });' || { echo "::error::$ART: Einrichten scheitert"; exit 1; }
 dc restart
 warte
 nachher=$(curl -fsS "http://127.0.0.1:$PORT/api/konto/status")
