@@ -24,7 +24,7 @@ What comes next and how we work is described in the [roadmap](ROADMAP.md) (Germa
 
 | Platform | Folder | Status |
 | --- | --- | --- |
-| **TrueNAS** | `truenas/dms/` (generated) | tested with the catalogue's check tool for every release; ready for a PR to [truenas/apps](https://github.com/truenas/apps) under `ix-dev/community/dms` ([#182](https://github.com/motom001/dms/issues/182)) |
+| **TrueNAS** | `truenas/ablago/` (generated) | tested with the catalogue's check tool for every release; ready for a PR to [truenas/apps](https://github.com/truenas/apps) under `ix-dev/community/ablago` ([#182](https://github.com/motom001/dms/issues/182)) |
 | **Unraid** | `unraid/dms.xml`, `unraid/dms-datenbank.xml` | templates for Community Applications; submission via [ca.unraid.net](https://ca.unraid.net/submit) ([#183](https://github.com/motom001/dms/issues/183)) |
 | **UGREEN** | `ugreen/` | draft for the App Center, open questions in `ugreen/README.md` (German) ([#181](https://github.com/motom001/dms/issues/181)) |
 | **Umbrel official** | `offiziell/umbrel/dms/` (generated) | ready for a PR to [getumbrel/umbrel-apps](https://github.com/getumbrel/umbrel-apps) ([#186](https://github.com/motom001/dms/issues/186)) |

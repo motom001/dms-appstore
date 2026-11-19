@@ -29,10 +29,10 @@ Ordner `Apps/DMS/` (Compose mit `x-casaos`, ein Container `dms-komplett`).
 
 ## TrueNAS – [#182](https://github.com/motom001/dms/issues/182)
 
-Ordner `truenas/dms/` (erzeugt, bei jedem Release mit dem Prüfwerkzeug des Katalogs getestet).
+Ordner `truenas/ablago/` (erzeugt, bei jedem Release mit dem Prüfwerkzeug des Katalogs getestet).
 
-1. Fork von [truenas/apps](https://github.com/truenas/apps), Ordner als `ix-dev/community/dms/` übernehmen.
-2. Dort `./.github/scripts/ci.py --app dms --train community --test-file basic-values.yaml` – genau so prüft es auch der Workflow *Store aktualisieren*.
+1. Fork von [truenas/apps](https://github.com/truenas/apps), Ordner als `ix-dev/community/ablago/` übernehmen.
+2. Dort `./.github/scripts/ci.py --app ablago --train community --test-file basic-values.yaml` – genau so prüft es auch der Workflow *Store aktualisieren*.
 3. Pull Request stellen. Neue Versionen kommen danach über deren Renovate.
 
 ## Unraid – [#183](https://github.com/motom001/dms/issues/183)

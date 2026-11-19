@@ -9,10 +9,11 @@ description: Ablago – document filing for home and small businesses. Self-host
   tasks, reminders and encrypted backups. The user interface is available in German and English.
 home: https://ablago.app
 host_mounts: []
-icon: https://media.sys.truenas.net/apps/dms/icons/icon.png
+icon: https://media.sys.truenas.net/apps/ablago/icons/icon.png
 keywords:
 - documents
 - dms
+- ablago
 - paperless
 - household
 lib_version: 2.3.17
@@ -21,7 +22,7 @@ maintainers:
 - email: motom001@users.noreply.github.com
   name: motom001
   url: https://github.com/motom001
-name: dms
+name: ablago
 run_as_context:
 - description: Container [dms] runs as root user and group.
   gid: 0

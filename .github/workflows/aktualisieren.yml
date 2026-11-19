@@ -131,8 +131,8 @@ jobs:
         if: steps.v.outputs.weiter == 'true'
         run: |
           git clone --quiet --depth 1 https://github.com/truenas/apps.git "$RUNNER_TEMP/truenas-apps"
-          rm -rf "$RUNNER_TEMP/truenas-apps/ix-dev/community/dms"
-          cp -r truenas/dms "$RUNNER_TEMP/truenas-apps/ix-dev/community/dms"
+          rm -rf "$RUNNER_TEMP/truenas-apps/ix-dev/community/ablago"
+          cp -r truenas/ablago "$RUNNER_TEMP/truenas-apps/ix-dev/community/ablago"
           pip install --quiet --require-hashes -r werkzeuge/requirements-truenas.txt
           cd "$RUNNER_TEMP/truenas-apps"
           # Neueste Bibliothek des Katalogs verwenden; ci.py trägt den Hash ein.
@@ -141,10 +141,10 @@ jobs:
           # Bei Fehlern die letzten Zeilen als Anmerkung ausgeben (Job-Logs sind nicht überall lesbar).
           melde() { tail -n 40 "$1" | sed 's/%/%25/g' | awk 'BEGIN{ORS="%0A"} {print}' | sed 's/^/::error title=TrueNAS::/'; echo; }
           set -o pipefail
-          ./.github/scripts/ci.py --app dms --train community --test-file basic-values.yaml 2>&1 | tee "$RUNNER_TEMP/truenas.log" || { melde "$RUNNER_TEMP/truenas.log"; exit 1; }
+          ./.github/scripts/ci.py --app ablago --train community --test-file basic-values.yaml 2>&1 | tee "$RUNNER_TEMP/truenas.log" || { melde "$RUNNER_TEMP/truenas.log"; exit 1; }
           ./.github/scripts/port_validation.py 2>&1 | tee "$RUNNER_TEMP/ports.log" || { melde "$RUNNER_TEMP/ports.log"; exit 1; }
           # Ergebnis (Bibliothek, Hash, Metadaten) zurück, damit es eingecheckt wird.
-          rsync -a --delete ix-dev/community/dms/ "$GITHUB_WORKSPACE/truenas/dms/"
+          rsync -a --delete ix-dev/community/ablago/ "$GITHUB_WORKSPACE/truenas/ablago/"
 
       - name: Übernehmen
         if: steps.v.outputs.weiter == 'true' && github.event_name != 'pull_request'

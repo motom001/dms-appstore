@@ -6,7 +6,7 @@ Erzeugt die App-Einträge aus den Vorlagen (vorlagen/) für eine DMS-Version.
 
   motom001-dms/          Umbrel (Community App Store; umbrel-app-store.yml liegt im Hauptordner)
   Apps/DMS/              ZimaOS/CasaOS (Quelle für den v2-Store und die v1-Zip-Datei)
-  truenas/dms/           TrueNAS-Katalog (für einen PR an truenas/apps, ix-dev/community/dms)
+  truenas/ablago/        TrueNAS-Katalog (für einen PR an truenas/apps, ix-dev/community/ablago)
   offiziell/umbrel/dms/  Umbrel offizieller Store (für einen PR an getumbrel/umbrel-apps, #186)
 
 Die erzeugten Dateien werden eingecheckt: Umbrel und CasaOS (v1) lesen das Repository direkt.
@@ -74,8 +74,8 @@ def main():
 
     # TrueNAS: Tag samt Digest wie im Katalog üblich („0.40.0@sha256:…“)
     werte['DMS_TAG'] = dms.split(':', 1)[1]
-    quelle = WURZEL / 'vorlagen/truenas/dms'
-    ziel = WURZEL / 'truenas/dms'
+    quelle = WURZEL / 'vorlagen/truenas/ablago'
+    ziel = WURZEL / 'truenas/ablago'
     if ziel.exists():
         shutil.rmtree(ziel)
     for datei in quelle.rglob('*'):
