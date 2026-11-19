@@ -1,6 +1,6 @@
 {
   "tagline": "Document filing for home and small businesses",
-  "description": "Ablago is self-hosted document filing for home and small businesses. Contracts, insurance, tax, car, house, medical bills: every topic gets a folder with the fields you need, documents are searchable thanks to built-in text recognition, and reminders make sure no deadline is missed.\n\nAfter installing, open the app: a setup assistant asks for the name of your household and creates the first administrator. The database is already connected. The user interface is in German.\n\n- Folders with your own fields, registers and views\n- Full-text search, also in scanned PDFs (OCR)\n- Tasks, reminders, notes and a daily summary by e-mail\n- Several users with roles and permissions\n- Encrypted backups with an emergency sheet, restore in the browser\n",
+  "description": "Ablago is self-hosted document filing for home and small businesses. Contracts, insurance, tax, car, house, medical bills: every topic gets a folder with the fields you need, documents are searchable thanks to built-in text recognition, and reminders make sure no deadline is missed.\n\nAfter installing, open the app: a setup assistant asks for the name of your household and creates the first administrator. The database is already connected. The user interface is available in German and English; further languages can be added as packages.\n\n- Folders with your own fields, registers and views\n- Full-text search, also in scanned PDFs (OCR)\n- Tasks, reminders, notes and a daily summary by e-mail\n- Several users with roles and permissions\n- Encrypted backups with an emergency sheet, restore in the browser\n",
   "tips": {
     "before_install": "Open the app right after installing and finish the setup assistant – until then everyone in your home network could do it. Afterwards, create a backup schedule under Werkbank → Sicherung and copy the backups to another place from time to time."
   },
@@ -11,7 +11,7 @@
     "amd64",
     "arm64"
   ],
-  "update_at": "2026-11-05",
+  "update_at": "2026-11-16",
   "website": "https://ablago.app",
   "repo": "https://github.com/motom001/dms",
   "support": "https://github.com/motom001/dms/issues",
@@ -22,16 +22,16 @@
     "/apps/io.github.motom001.dms/assets/screenshot-3.webp"
   ],
   "title": "Ablago",
-  "release_note": "What is new: https://github.com/motom001/dms/releases/tag/v0.205.1",
+  "release_note": "What is new: https://github.com/motom001/dms/releases/tag/v0.290.10",
   "base_url": "https://cdn.jsdelivr.net/gh/motom001/dms-appstore@gh-pages",
   "id": "io.github.motom001.dms",
-  "version": "0.205.1",
+  "version": "0.290.10",
   "categories": [
     "productivity"
   ],
   "min_memory": 0,
   "min_image_size": {
-    "amd64": 112510199,
-    "arm64": 111978590
+    "amd64": 137178358,
+    "arm64": 136517974
   }
 }
