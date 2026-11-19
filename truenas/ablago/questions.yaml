@@ -246,7 +246,7 @@ questions:
       type: dict
       attrs:
         - variable: files
-          label: Dateien (Dokumente)
+          label: Files (Documents)
           schema:
             type: dict
             attrs:
@@ -321,7 +321,7 @@ questions:
                         show_if: [["acl_enable", "=", false]]
                         required: true
         - variable: geheim
-          label: Schlüssel
+          label: Keys
           schema:
             type: dict
             attrs:
@@ -396,7 +396,7 @@ questions:
                         show_if: [["acl_enable", "=", false]]
                         required: true
         - variable: sicherung
-          label: Sicherungen
+          label: Backups
           schema:
             type: dict
             attrs:
