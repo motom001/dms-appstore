@@ -1,12 +1,13 @@
-app_version: 0.205.1
+app_version: 0.290.10
 capabilities: []
 categories:
 - productivity
 changelog_url: https://github.com/motom001/dms/releases
-date_added: '2026-11-05'
+date_added: '2026-11-16'
 description: "Ablago \u2013 document filing for home and small businesses. Self-hosted,\
   \ for contracts, insurance, tax and all paperwork in folders, with full-text search\
-  \ (OCR), tasks, reminders and encrypted backups. The user interface is in German."
+  \ (OCR), tasks, reminders and encrypted backups. The user interface is available\
+  \ in German and English."
 home: https://ablago.app
 host_mounts: []
 icon: https://media.sys.truenas.net/apps/dms/icons/icon.png
@@ -15,8 +16,8 @@ keywords:
 - dms
 - paperless
 - household
-lib_version: 2.3.18
-lib_version_hash: ed9839f681342ae8ca5f8c4c860ae22d0845a0919f472ba780d6edbc838f2633
+lib_version: 2.3.21
+lib_version_hash: dd32473980659518124d9955045ec3b5b08975875cb9c2a0397603dba280bb79
 maintainers:
 - email: dev@truenas.com
   name: truenas

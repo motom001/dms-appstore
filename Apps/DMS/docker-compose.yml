@@ -4,7 +4,7 @@ services:
   # dms-komplett (motom001/dms-appstore#5): Ablago und PostgreSQL in einem Container. PostgreSQL lauscht
   # nur im Container, ohne Passwort – es gibt kein festes Datenbank-Passwort und keinen Datenbank-Port.
   dms:
-    image: ghcr.io/motom001/dms-komplett:0.205.1@sha256:c784d28359c16cbd710ea447a4f9bf5c7ac920f63f93620bc9e49b3172ea822f
+    image: ghcr.io/motom001/dms-komplett:0.290.10@sha256:f7dc8ab2ee5e8c7d45bf5b97f6c979339a2991c31c461a9eaf86f47ac3417203
     restart: unless-stopped
     environment:
       # Ohne Einrichtungscode: Er stünde nur im Protokoll des Containers.
@@ -44,7 +44,7 @@ x-casaos:
     en_US: |
       Ablago is self-hosted document filing for home and small businesses. Contracts, insurance, tax, car, house, medical bills: every topic gets a folder with the fields you need, documents are searchable thanks to built-in text recognition, and reminders make sure no deadline is missed.
 
-      After installing, open the app: a setup assistant asks for the name of your household and creates the first administrator. The database is already connected. The user interface is in German.
+      After installing, open the app: a setup assistant asks for the name of your household and creates the first administrator. The database is already connected. The user interface is available in German and English; further languages can be added as packages.
 
       - Folders with your own fields, registers and views
       - Full-text search, also in scanned PDFs (OCR)
@@ -54,7 +54,7 @@ x-casaos:
     de_DE: |
       Ablago ist eine selbst gehostete Dokumentenablage für zu Hause und kleine Betriebe. Verträge, Versicherungen, Steuer, Auto, Haus, Arztrechnungen: Jedes Thema bekommt eine Mappe mit den Feldern, die du brauchst. Dank eingebauter Texterkennung findest du jedes Dokument wieder, und Erinnerungen sorgen dafür, dass keine Frist verstreicht.
 
-      Nach der Installation öffnest du die App: Ein Assistent fragt nach dem Namen deines Haushalts und legt den ersten Administrator an. Die Datenbank ist schon angebunden.
+      Nach der Installation öffnest du die App: Ein Assistent fragt nach dem Namen deines Haushalts und legt den ersten Administrator an. Die Datenbank ist schon angebunden. Die Oberfläche gibt es auf Deutsch und Englisch, weitere Sprachen kommen als Pakete dazu.
 
       - Mappen mit eigenen Feldern, Registern und Sichten
       - Volltextsuche, auch in eingescannten PDFs (Texterkennung)
@@ -71,11 +71,11 @@ x-casaos:
   architectures:
     - amd64
     - arm64
-  version: "0.205.1"
-  update_at: "2026-11-05"
+  version: "0.290.10"
+  update_at: "2026-11-16"
   release_notes:
-    en_US: "What is new: https://github.com/motom001/dms/releases/tag/v0.205.1"
-    de_DE: "Was neu ist: https://github.com/motom001/dms/releases/tag/v0.205.1"
+    en_US: "What is new: https://github.com/motom001/dms/releases/tag/v0.290.10"
+    de_DE: "Was neu ist: https://github.com/motom001/dms/releases/tag/v0.290.10"
   website: https://ablago.app
   repo: https://github.com/motom001/dms
   support: https://github.com/motom001/dms/issues

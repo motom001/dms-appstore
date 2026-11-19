@@ -10,7 +10,7 @@ services:
       PROXY_AUTH_ADD: "false"
 
   server:
-    image: ghcr.io/motom001/dms:0.205.1@sha256:9357547483d93be5e45bba8d019afdfe3bd9bd2602f71ef9afe0638bca231427
+    image: ghcr.io/motom001/dms:0.290.10@sha256:96a9f5710bd0eceea6dba59104893b4e807e1c1d26454b8905b4c6357aa17cfd
     restart: on-failure
     init: true
     depends_on:
@@ -27,7 +27,7 @@ services:
       - ${APP_DATA_DIR}/data/sicherung:/data/sicherung
 
   db:
-    image: postgres:17-alpine@sha256:266d3c257594e195b309ae9d1805e54c788f1d7b375f56bf6c367aac6c917e7b
+    image: postgres:17-alpine@sha256:526f86d93c6ea08fd3f1fe5605650cacc781b2c6013169a0ad8f42c7d3d84f32
     restart: on-failure
     environment:
       POSTGRES_DB: dms
