@@ -16,7 +16,7 @@ images:
     tag: "1.2.25@sha256:6d22237941a105d0b634b88f6b95db3c04e5a015550311924beda718f8598f6c"
 
 consts:
-  dms_container_name: dms
+  dms_container_name: ablago
   postgres_container_name: postgres
   perms_container_name: permissions
   db_user: dms

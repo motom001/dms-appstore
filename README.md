@@ -22,7 +22,7 @@ Was als Nächstes kommt und wie wir arbeiten, steht im [Fahrplan](ROADMAP.md).
 
 | Plattform | Ordner | Stand |
 | --- | --- | --- |
-| **TrueNAS** | `truenas/dms/` (erzeugt) | wird bei jedem Release mit dem Prüfwerkzeug des Katalogs getestet; bereit für einen PR an [truenas/apps](https://github.com/truenas/apps) unter `ix-dev/community/dms` ([#182](https://github.com/motom001/dms/issues/182)) |
+| **TrueNAS** | `truenas/ablago/` (erzeugt) | wird bei jedem Release mit dem Prüfwerkzeug des Katalogs getestet; bereit für einen PR an [truenas/apps](https://github.com/truenas/apps) unter `ix-dev/community/ablago` ([#182](https://github.com/motom001/dms/issues/182)) |
 | **Unraid** | `unraid/dms.xml`, `unraid/dms-datenbank.xml` | Vorlagen für Community Applications; Einreichung über [ca.unraid.net](https://ca.unraid.net/submit) ([#183](https://github.com/motom001/dms/issues/183)) |
 | **UGREEN** | `ugreen/` | Entwurf für das App Center, offene Fragen in `ugreen/README.md` ([#181](https://github.com/motom001/dms/issues/181)) |
 | **Umbrel offiziell** | `offiziell/umbrel/dms/` (erzeugt) | bereit für einen PR an [getumbrel/umbrel-apps](https://github.com/getumbrel/umbrel-apps) ([#186](https://github.com/motom001/dms/issues/186)) |
