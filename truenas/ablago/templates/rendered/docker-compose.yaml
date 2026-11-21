@@ -5,18 +5,18 @@ configs:
       false, "mode": "check", "uid": 999, "gid": 999, "chmod": null}, {"read_only":
       false, "mount_path": "/mnt/permission/files", "is_temporary": false, "identifier":
       "files", "recursive": false, "mode": "check", "uid": 568, "gid": 568, "chmod":
-      null}, {"read_only": false, "mount_path": "/mnt/permission/geheim", "is_temporary":
-      false, "identifier": "geheim", "recursive": false, "mode": "check", "uid": 568,
-      "gid": 568, "chmod": null}, {"read_only": false, "mount_path": "/mnt/permission/sicherung",
-      "is_temporary": false, "identifier": "sicherung", "recursive": false, "mode":
+      null}, {"read_only": false, "mount_path": "/mnt/permission/key_store", "is_temporary":
+      false, "identifier": "key_store", "recursive": false, "mode": "check", "uid":
+      568, "gid": 568, "chmod": null}, {"read_only": false, "mount_path": "/mnt/permission/backups",
+      "is_temporary": false, "identifier": "backups", "recursive": false, "mode":
       "check", "uid": 568, "gid": 568, "chmod": null}]'
 networks:
-  ix-internal-app-name-dms-net:
+  ix-internal-app-name-ablago-net:
     enable_ipv6: false
     external: false
     labels:
       tn.network.internal: 'true'
-    name: ix-internal-app-name-dms-net
+    name: ix-internal-app-name-ablago-net
 services:
   ablago:
     cap_add:
@@ -39,11 +39,14 @@ services:
           memory: 2048M
     environment:
       DATABASE_URL: postgres://dms:password@postgres:5432/dms?sslmode=disable
+      DMS_DATENWURZEL: /data
+      DMS_DATEN_WURZEL: /data
       DMS_EINRICHTUNGSCODE: aus
       GID: '568'
       GROUP_ID: '568'
       NVIDIA_VISIBLE_DEVICES: void
       PGID: '568'
+      PORT: '8080'
       PUID: '568'
       TZ: Etc/UTC
       UID: '568'
@@ -62,17 +65,17 @@ services:
       - wget
       - --quiet
       - --spider
-      - http://127.0.0.1:3000/api/gesundheit
+      - http://127.0.0.1:8080/api/gesundheit
       timeout: 5s
     image: ghcr.io/motom001/dms:0.299.2@sha256:877b3946feaea773fead81865c95b8b3e92469ff0f3f7deff9464fc946cd3e95
     networks:
-      ix-internal-app-name-dms-net: {}
+      ix-internal-app-name-ablago-net: {}
     platform: linux/amd64
     ports:
     - mode: ingress
       protocol: tcp
       published: 8080
-      target: 3000
+      target: 8080
     privileged: false
     restart: unless-stopped
     security_opt:
@@ -85,21 +88,21 @@ services:
         create_host_path: true
         propagation: rprivate
       read_only: false
-      source: /opt/tests/mnt/dms/files
+      source: /opt/tests/mnt/ablago/files
       target: /data/files
       type: bind
     - bind:
         create_host_path: true
         propagation: rprivate
       read_only: false
-      source: /opt/tests/mnt/dms/geheim
+      source: /opt/tests/mnt/ablago/keys
       target: /data/geheim
       type: bind
     - bind:
         create_host_path: true
         propagation: rprivate
       read_only: false
-      source: /opt/tests/mnt/dms/sicherung
+      source: /opt/tests/mnt/ablago/backups
       target: /data/sicherung
       type: bind
   permissions:
@@ -151,29 +154,29 @@ services:
         create_host_path: true
         propagation: rprivate
       read_only: false
-      source: /opt/tests/mnt/dms/files
+      source: /opt/tests/mnt/ablago/backups
+      target: /mnt/permission/backups
+      type: bind
+    - bind:
+        create_host_path: true
+        propagation: rprivate
+      read_only: false
+      source: /opt/tests/mnt/ablago/files
       target: /mnt/permission/files
       type: bind
     - bind:
         create_host_path: true
         propagation: rprivate
       read_only: false
-      source: /opt/tests/mnt/dms/geheim
-      target: /mnt/permission/geheim
+      source: /opt/tests/mnt/ablago/keys
+      target: /mnt/permission/key_store
       type: bind
     - bind:
         create_host_path: true
         propagation: rprivate
       read_only: false
-      source: /opt/tests/mnt/dms/postgres-data
+      source: /opt/tests/mnt/ablago/postgres_data
       target: /mnt/permission/postgres_postgres_data
-      type: bind
-    - bind:
-        create_host_path: true
-        propagation: rprivate
-      read_only: false
-      source: /opt/tests/mnt/dms/sicherung
-      target: /mnt/permission/sicherung
       type: bind
   postgres:
     cap_drop:
@@ -195,7 +198,7 @@ services:
       GID: '568'
       GROUP_ID: '568'
       NVIDIA_VISIBLE_DEVICES: void
-      PGDATA: /var/lib/postgresql/17/docker
+      PGDATA: /var/lib/postgresql/18/docker
       PGID: '568'
       PGPORT: '5432'
       POSTGRES_DB: dms
@@ -216,7 +219,7 @@ services:
       start_period: 15s
       test:
       - CMD
-      - /usr/lib/postgresql/17/bin/pg_isready
+      - /usr/lib/postgresql/18/bin/pg_isready
       - -h
       - 127.0.0.1
       - -p
@@ -226,9 +229,9 @@ services:
       - -d
       - dms
       timeout: 5s
-    image: postgres:17.11-bookworm@sha256:858bb5e98eed02eb8cafbcdc007f9a65d1b613972028944a8ec2133ccaf80d27
+    image: postgres:18.7-trixie@sha256:2ea8630df176ad090ec92136dee850397c5af8781e4bcf2e4162593691c61bbc
     networks:
-      ix-internal-app-name-dms-net: {}
+      ix-internal-app-name-ablago-net: {}
     platform: linux/amd64
     privileged: false
     restart: unless-stopped
@@ -244,7 +247,7 @@ services:
         create_host_path: true
         propagation: rprivate
       read_only: false
-      source: /opt/tests/mnt/dms/postgres-data
+      source: /opt/tests/mnt/ablago/postgres_data
       target: /var/lib/postgresql
       type: bind
   postgres_upgrade:
@@ -266,14 +269,14 @@ services:
       GID: '568'
       GROUP_ID: '568'
       NVIDIA_VISIBLE_DEVICES: void
-      PGDATA: /var/lib/postgresql/17/docker
+      PGDATA: /var/lib/postgresql/18/docker
       PGID: '568'
       PGPORT: '5432'
       POSTGRES_DB: dms
       POSTGRES_PASSWORD: password
       POSTGRES_USER: dms
       PUID: '568'
-      TARGET_VERSION: '17'
+      TARGET_VERSION: '18'
       TZ: Etc/UTC
       UID: '568'
       UMASK: '002'
@@ -283,7 +286,7 @@ services:
     - 568
     healthcheck:
       disable: true
-    image: ghcr.io/truenas/containers/postgres-upgrade:1.2.25@sha256:6d22237941a105d0b634b88f6b95db3c04e5a015550311924beda718f8598f6c
+    image: ghcr.io/truenas/containers/postgres-upgrade:1.2.27@sha256:0a089b0f18f773f7a0dc471fc2448be444006ef7a453f89907626a8002362ca2
     network_mode: none
     platform: linux/amd64
     privileged: false
@@ -298,7 +301,7 @@ services:
         create_host_path: true
         propagation: rprivate
       read_only: false
-      source: /opt/tests/mnt/dms/postgres-data
+      source: /opt/tests/mnt/ablago/postgres_data
       target: /var/lib/postgresql
       type: bind
 volumes: {}
@@ -322,7 +325,7 @@ x-notes: '# <app_name>
   #### Joined networks
 
 
-  - ix-internal-app-name-dms-net
+  - ix-internal-app-name-ablago-net
 
 
   #### Running user/group(s)
@@ -344,7 +347,7 @@ x-notes: '# <app_name>
   #### Joined networks
 
 
-  - ix-internal-app-name-dms-net
+  - ix-internal-app-name-ablago-net
 
 
   #### Running user/group(s)
