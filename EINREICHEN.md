@@ -29,7 +29,9 @@ Ordner `Apps/DMS/` (Compose mit `x-casaos`, ein Container `dms-komplett`).
 
 ## TrueNAS – [#182](https://github.com/motom001/dms/issues/182)
 
-Ordner `truenas/ablago/` (erzeugt, bei jedem Release mit dem Prüfwerkzeug des Katalogs getestet).
+**Erledigt:** im Katalog seit 20.11.2026 ([truenas/apps#6604](https://github.com/truenas/apps/pull/6604), [apps.truenas.com](https://apps.truenas.com/catalog/ablago_community/)). Ein Maintainer von TrueNAS hat die App beim Merge angepasst: Namen `ablago`, Datensätze `keys` und `backups`, Port 30607, nur Postgres 18, `PORT` und `DMS_DATENWURZEL` gesetzt. `vorlagen/truenas/ablago/` entspricht diesem Stand (bis auf die Platzhalter für Version und Image). Neue Versionen bringt Renovate in truenas/apps, nicht wir. Größere Änderungen an der App gehen als PR an truenas/apps, danach hier nachziehen.
+
+Ordner `truenas/ablago/` (erzeugt, bei jedem Release mit dem Prüfwerkzeug des Katalogs getestet). So lief die Einreichung:
 
 1. Fork von [truenas/apps](https://github.com/truenas/apps), Ordner als `ix-dev/community/ablago/` übernehmen.
 2. Dort `./.github/scripts/ci.py --app ablago --train community --test-file basic-values.yaml` – genau so prüft es auch der Workflow *Store aktualisieren*.
