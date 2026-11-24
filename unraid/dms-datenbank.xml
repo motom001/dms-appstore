@@ -7,7 +7,8 @@
   <Privileged>false</Privileged>
   <Support>https://github.com/motom001/dms/issues</Support>
   <Project>https://github.com/motom001/dms</Project>
-  <Overview>PostgreSQL 17 für Ablago. Zuerst diese Vorlage installieren, dann „Ablago“ mit demselben Passwort.</Overview>
+  <Overview>VERALTET – die Vorlage „Ablago“ (unraid/ablago.xml) bringt die Datenbank selbst mit. PostgreSQL 17 für Ablago. Zuerst diese Vorlage installieren, dann „Ablago“ mit demselben Passwort.</Overview>
+  <Deprecated>true</Deprecated>
   <Category>Productivity:</Category>
   <TemplateURL>https://raw.githubusercontent.com/motom001/dms-appstore/main/unraid/dms-datenbank.xml</TemplateURL>
   <Icon>https://cdn.jsdelivr.net/gh/motom001/dms-appstore@main/Apps/DMS/icon.png</Icon>

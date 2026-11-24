@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
 <Container version="2">
-  <Name>Ablago</Name>
+  <Name>Ablago (alt, mit eigener Datenbank)</Name>
   <Repository>ghcr.io/motom001/dms:stabil</Repository>
   <Registry>https://github.com/motom001/dms/pkgs/container/dms</Registry>
   <Network>bridge</Network>
   <Privileged>false</Privileged>
   <Support>https://github.com/motom001/dms/issues</Support>
   <Project>https://github.com/motom001/dms</Project>
-  <Overview>Ablago – Dokumentenablage für zu Hause und kleine Betriebe: Verträge, Versicherungen, Steuer und alle Unterlagen in Mappen – mit Volltextsuche (Texterkennung), Aufgaben, Erinnerungen und verschlüsselten Sicherungen. Oberfläche auf Deutsch und Englisch. Braucht die Vorlage „Ablago-Datenbank“ (PostgreSQL 17) – zuerst diese installieren.</Overview>
+  <Overview>VERALTET – bitte die Vorlage „Ablago“ (unraid/ablago.xml, Datenbank eingebaut) nehmen. Umstieg: in Ablago eine Sicherung anlegen, die neue Vorlage installieren und die Sicherung im Assistenten zurückholen (Handbuch: Installation → Unraid). Ablago – Dokumentenablage für zu Hause und kleine Betriebe: Verträge, Versicherungen, Steuer und alle Unterlagen in Mappen – mit Volltextsuche (Texterkennung), Aufgaben, Erinnerungen und verschlüsselten Sicherungen. Oberfläche auf Deutsch und Englisch. Braucht die Vorlage „Ablago-Datenbank“ (PostgreSQL 17) – zuerst diese installieren.</Overview>
+  <Deprecated>true</Deprecated>
   <Category>Productivity:</Category>
   <WebUI>http://[IP]:[PORT:3000]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/motom001/dms-appstore/main/unraid/dms.xml</TemplateURL>

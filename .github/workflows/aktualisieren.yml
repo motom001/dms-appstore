@@ -126,6 +126,14 @@ jobs:
         if: steps.v.outputs.weiter == 'true'
         run: werkzeuge/probe.sh casaos ${{ steps.v.outputs.probe }}
 
+      - name: Probe-Installation Unraid
+        if: steps.v.outputs.weiter == 'true'
+        env:
+          PROBE_IMAGE: ${{ steps.bilder.outputs.komplett }}
+        run: |
+          python3 -c "import xml.etree.ElementTree as E; [E.parse(f) for f in ('unraid/ablago.xml', 'unraid/dms.xml', 'unraid/dms-datenbank.xml')]"
+          werkzeuge/probe.sh unraid ${{ steps.v.outputs.probe }}
+
       # TrueNAS (motom001/dms#182): mit dem Prüfwerkzeug des Katalogs rendern, starten, auf „healthy“ warten.
       - name: TrueNAS-Katalog prüfen
         if: steps.v.outputs.weiter == 'true'
