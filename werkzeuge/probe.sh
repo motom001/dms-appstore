@@ -4,9 +4,12 @@
 # (Pfade, Variablen, Containernamen nachgebildet), richtet das DMS über die API ein,
 # startet neu und prüft, dass die Daten bleiben.
 #
-#   werkzeuge/probe.sh umbrel|casaos [--ohne-einrichtung]
+#   werkzeuge/probe.sh umbrel|casaos|unraid [--ohne-einrichtung]
+#
+# Unraid (motom001/dms-appstore#29): unraid/ablago.xml wird in eine Compose-Datei übersetzt, wie Unraid den Container
+# startet (Port, Variablen, Ordner, ExtraParams). PROBE_IMAGE ersetzt das Image (in der CI dms-komplett des Releases).
 set -euo pipefail
-ART="${1:?umbrel oder casaos}"
+ART="${1:?umbrel, casaos oder unraid}"
 OHNE_EINRICHTUNG="${2:-}"
 cd "$(dirname "$0")/.."
 arbeit=$(mktemp -d)
@@ -32,6 +35,27 @@ PY
   casaos)
     sed "s#/DATA/AppData/\$AppID#$arbeit/app#g" Apps/DMS/docker-compose.yml > "$compose"
     PORT=8478 DIENST=dms
+    ;;
+  unraid)
+    python3 - "$compose" "$arbeit/app" <<'PY'
+import os, sys, yaml, xml.etree.ElementTree as E
+c = E.parse('unraid/ablago.xml').getroot()
+s = {'image': os.environ.get('PROBE_IMAGE') or c.findtext('Repository'), 'ports': [], 'environment': {}, 'volumes': []}
+for k in c.findall('Config'):
+    wert = (k.text or k.get('Default') or '').strip()
+    if k.get('Type') == 'Port': s['ports'].append(f'1{wert}:{k.get("Target")}')
+    elif k.get('Type') == 'Variable' and wert: s['environment'][k.get('Target')] = wert
+    elif k.get('Type') == 'Path':
+        ziel = wert.replace('/mnt/user/appdata/ablago', sys.argv[2]); os.makedirs(ziel, exist_ok=True)
+        s['volumes'].append(f'{ziel}:{k.get("Target")}:{k.get("Mode") or "rw"}')
+extra = (c.findtext('ExtraParams') or '').split()
+if '--init' in extra: s['init'] = True
+if 'no-new-privileges:true' in extra: s['security_opt'] = ['no-new-privileges:true']
+yaml.safe_dump({'services': {'ablago': s}}, open(sys.argv[1], 'w'))
+PY
+    # Unraid legt appdata als nobody:users (99:100) an.
+    sudo chown -R 99:100 "$arbeit/app" 2>/dev/null || chown -R 99:100 "$arbeit/app"
+    PORT=18080 DIENST=ablago
     ;;
   *) echo "unbekannt: $ART"; exit 2 ;;
 esac
@@ -82,4 +106,9 @@ nachher=$(curl -fsS "http://127.0.0.1:$PORT/api/konto/status")
 curl -fsS -X POST "http://127.0.0.1:$PORT/api/konto/anmelden" -H 'x-dms: 1' -H 'content-type: application/json' \
   -d '{"email":"admin@probe.invalid","passwort":"ein-langes-probe-passwort"}' >/dev/null \
   || { echo "::error::$ART: Anmeldung nach dem Neustart scheitert"; exit 1; }
+if [ "$ART" = unraid ]; then
+  # PUID/PGID 99:100: alles in appdata gehört nobody:users, damit die Freigabe an die Sicherungen kommt.
+  fremd=$(sudo find "$arbeit/app" -mindepth 1 \( ! -uid 99 -o ! -gid 100 \) -printf '%p %U:%G\n' 2>/dev/null | grep -v '/postgres\(/\| \)' | head -5 || true)
+  [ -z "$fremd" ] || { echo "::error::unraid: nicht 99:100: $fremd"; exit 1; }
+fi
 echo "$ART: installiert, eingerichtet, neu gestartet, Anmeldung klappt."

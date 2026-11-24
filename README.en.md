@@ -25,7 +25,7 @@ What comes next and how we work is described in the [roadmap](ROADMAP.md) (Germa
 | Platform | Folder | Status |
 | --- | --- | --- |
 | **TrueNAS** | `truenas/ablago/` (generated) | **in the catalogue** since 20 Nov 2026: [apps.truenas.com](https://apps.truenas.com/catalog/ablago_community/), community train ([#182](https://github.com/motom001/dms/issues/182)). Renovate brings new versions there; the template here matches the catalogue and is tested with the catalogue's check tool for every release |
-| **Unraid** | `unraid/dms.xml`, `unraid/dms-datenbank.xml` | templates for Community Applications; submission via [ca.unraid.net](https://ca.unraid.net/submit) ([#183](https://github.com/motom001/dms/issues/183)) |
+| **Unraid** | `unraid/ablago.xml` | one template with built-in database (`dms-komplett`), checked by a probe install on every release; `dms.xml`/`dms-datenbank.xml` marked deprecated. Submission for Community Applications via [ca.unraid.net](https://ca.unraid.net/submit) ([#183](https://github.com/motom001/dms/issues/183)) |
 | **UGREEN** | `ugreen/` | draft for the App Center, open questions in `ugreen/README.md` (German) ([#181](https://github.com/motom001/dms/issues/181)) |
 | **Umbrel official** | `offiziell/umbrel/dms/` (generated) | ready for a PR to [getumbrel/umbrel-apps](https://github.com/getumbrel/umbrel-apps) ([#186](https://github.com/motom001/dms/issues/186)) |
 | **ZimaOS official** | `Apps/DMS/` | the same file for a PR to [IceWhaleTech/CasaOS-AppStore](https://github.com/IceWhaleTech/CasaOS-AppStore) ([#186](https://github.com/motom001/dms/issues/186)) |

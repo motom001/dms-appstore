@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!-- Ablago für Unraid (motom001/dms-appstore#29): dms-komplett – Ablago und PostgreSQL in einem Container. Die Datenbank
+     lauscht nur im Container, ohne Passwort und ohne Port nach außen. Ersetzt die beiden Vorlagen dms.xml und dms-datenbank.xml. -->
+<Container version="2">
+  <Name>Ablago</Name>
+  <Repository>ghcr.io/motom001/dms-komplett:stabil</Repository>
+  <Registry>https://github.com/motom001/dms/pkgs/container/dms-komplett</Registry>
+  <Network>bridge</Network>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/motom001/dms/issues</Support>
+  <Project>https://ablago.app</Project>
+  <Overview>Ablago – Dokumentenablage für zu Hause und kleine Betriebe: Verträge, Versicherungen, Steuer und alle Unterlagen in Mappen – mit Volltextsuche (Texterkennung), Aufgaben, Erinnerungen und verschlüsselten Sicherungen. Oberfläche auf Deutsch und Englisch. Die Datenbank ist eingebaut: eine Vorlage, kein Datenbank-Passwort, kein Datenbank-Port. Nach dem Start im Browser öffnen – ein Assistent richtet alles ein.</Overview>
+  <Category>Productivity:</Category>
+  <WebUI>http://[IP]:[PORT:3000]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/motom001/dms-appstore/main/unraid/ablago.xml</TemplateURL>
+  <Icon>https://cdn.jsdelivr.net/gh/motom001/dms-appstore@main/Apps/DMS/icon.png</Icon>
+  <ExtraParams>--init --security-opt no-new-privileges:true</ExtraParams>
+  <Config Name="Web-Oberfläche" Target="3000" Default="8080" Mode="tcp" Description="Port im Browser: http://&lt;Unraid&gt;:8080" Type="Port" Display="always" Required="true" Mask="false">8080</Config>
+  <Config Name="Dateien" Target="/data/files" Default="/mnt/user/appdata/ablago/files" Mode="rw" Description="Hochgeladene Dokumente" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/ablago/files</Config>
+  <Config Name="Schlüssel" Target="/data/geheim" Default="/mnt/user/appdata/ablago/geheim" Mode="rw" Description="Schlüssel und Einrichtungscode" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/ablago/geheim</Config>
+  <Config Name="Sicherungen" Target="/data/sicherung" Default="/mnt/user/appdata/ablago/sicherung" Mode="rw" Description="Sicherungen von Ablago – ab und zu an einen anderen Ort kopieren" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/ablago/sicherung</Config>
+  <Config Name="Datenbank" Target="/data/postgres" Default="/mnt/user/appdata/ablago/postgres" Mode="rw" Description="Eingebaute Datenbank (PostgreSQL) – nicht von Hand ändern" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/ablago/postgres</Config>
+  <Config Name="Einrichtungscode" Target="DMS_EINRICHTUNGSCODE" Default="aus" Mode="" Description="aus: Einrichtung ohne Code, nur aus dem Heimnetz – gleich nach dem Start einrichten" Type="Variable" Display="advanced" Required="false" Mask="false">aus</Config>
+  <Config Name="Benutzer (PUID)" Target="PUID" Default="99" Mode="" Description="Ablago läuft als dieser Benutzer und legt die Dateien so an – 99 (nobody) wie bei Unraid üblich, damit du über die Freigabe an die Sicherungen kommst" Type="Variable" Display="advanced" Required="false" Mask="false">99</Config>
+  <Config Name="Gruppe (PGID)" Target="PGID" Default="100" Mode="" Description="Gruppe dazu – 100 (users) wie bei Unraid üblich" Type="Variable" Display="advanced" Required="false" Mask="false">100</Config>
+  <Config Name="Reverse-Proxy (TRUST_PROXY)" Target="TRUST_PROXY" Default="" Mode="" Description="Leer lassen. Nur wenn ein Reverse-Proxy direkt auf Unraid läuft (nicht als Container): die Adresse, die die Werkbank dazu nennt" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+</Container>
