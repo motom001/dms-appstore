@@ -10,7 +10,12 @@ SHORT_LIVED = "short-lived"
 
 RISKS_HEADER = "!!! WARNING !!!"
 RISKS_INTRO = (
-    "This application requires additional elevated permissions beyond standard containerization protections. "
+    "This application can be granted additional elevated permissions beyond standard containerization protections, "
+    "depending on the configuration. Use at your own risk."
+)
+# The notes use this one when the render found at least one risk enabled
+RISKS_ENABLED_INTRO = (
+    "This application runs with additional elevated permissions beyond standard containerization protections. "
     "Use at your own risk."
 )
 # The README is shown before install, where every declared risk is only possible
@@ -22,9 +27,12 @@ RISKS_MAY_LIST_HEADER = "The following additional privileges may be enabled by t
 RISKS_FOOTER = ""
 # Ordered by label, the README and the notes list them in this order
 RISKS = {
+    "security_profiles": "Disabled Security Profiles",
     "docker_access": "Docker Socket Access",
     "host_capabilities": "Extended System Capabilities",
+    "host_ipc": "Host IPC Namespace",
     "host_network": "Host Networking",
+    "host_pid": "Host Process Namespace",
     "mdns": "mDNS Announcements",
     "privileged": "Privileged Mode",
     "truenas_api_access": "TrueNAS API Key",
@@ -36,6 +44,12 @@ UNDETECTABLE_RISKS = {
     "mdns": False,
 }
 DOCKER_SOCKETS = ("/var/run/docker.sock", "/run/docker.sock")
+# Security options that turn off one of docker's default confinements when set to [unconfined]
+UNCONFINED_SECURITY_OPTS = {
+    "apparmor": "AppArmor - the default profile that blocks mounts and writes to kernel settings is off",
+    "seccomp": "Seccomp - all system calls are allowed, which widens the attack surface of the host kernel",
+    "systempaths": "System paths - the masked and read only paths under /proc and /sys are exposed",
+}
 # Capabilities that reach the host on their own: mount and admin syscalls, kernel modules,
 # raw I/O, and open_by_handle_at, which reads any file on a bind-mounted filesystem.
 # NET_ADMIN, SYS_PTRACE and the like stay in the container's namespaces, so they are left out.
@@ -269,6 +283,7 @@ class Notes:
             self._security[name].append(Security("Running user/group(s)", run_as_sec_items))
 
             if c._ipc_mode == "host":
+                self._detected_risks.add("host_ipc")
                 self._security[name].append(
                     Security(
                         header="Host IPC namespace is enabled",
@@ -279,6 +294,7 @@ class Notes:
                     )
                 )
             if c._pid_mode == "host":
+                self._detected_risks.add("host_pid")
                 self._security[name].append(
                     Security(
                         header="Host PID namespace is enabled",
@@ -308,6 +324,17 @@ class Notes:
                         ],
                     )
                 )
+
+            unconfined = [
+                UNCONFINED_SECURITY_OPTS[key]
+                for key, opt in sorted(c._security_opt._opts.items())
+                if key in UNCONFINED_SECURITY_OPTS and opt._value == "unconfined"
+            ]
+            if unconfined:
+                # Privileged mode turns these off already, its risk covers them
+                if not c._privileged:
+                    self._detected_risks.add("security_profiles")
+                self._security[name].append(Security(header="Security profiles are disabled", items=unconfined))
 
             host_mounts = []
             for dev in c.devices._devices:
@@ -355,7 +382,7 @@ class Notes:
         if enabled or may:
             result += "## Risks ⚠️\n\n"
             # Rules set the warning apart from the sections around it
-            result += f"---\n\n**{RISKS_HEADER}**\n\n{RISKS_INTRO}\n\n"
+            result += f"---\n\n**{RISKS_HEADER}**\n\n{RISKS_ENABLED_INTRO if enabled else RISKS_INTRO}\n\n"
             for list_header, names in ((RISKS_ENABLED_LIST_HEADER, enabled), (RISKS_MAY_LIST_HEADER, may)):
                 if names:
                     result += f"{list_header}\n\n"
