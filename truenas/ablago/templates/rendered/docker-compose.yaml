@@ -67,7 +67,7 @@ services:
       - --spider
       - http://127.0.0.1:8080/api/gesundheit
       timeout: 5s
-    image: ghcr.io/motom001/dms:0.304.3@sha256:3f08b783cd9f7b7eb03438e793401d6b530d4624d89aef1b807235424cbe9bd2
+    image: ghcr.io/motom001/dms:0.313.1@sha256:a7ef86faca8d6c2767dce85817b2509ded624c211017d9c7a507f0bde6c4adc4
     networks:
       ix-internal-app-name-ablago-net: {}
     platform: linux/amd64
