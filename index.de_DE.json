@@ -2,8 +2,8 @@
   "apps": [
     {
       "id": "io.github.motom001.dms",
-      "title": "Ablago",
-      "tagline": "Dokumentenablage für zu Hause und kleine Betriebe"
+      "tagline": "Dokumentenablage für zu Hause und kleine Betriebe",
+      "title": "Ablago"
     }
   ]
 }
